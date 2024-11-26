@@ -13,7 +13,7 @@ import java.util.List;
  * User related endpoints.
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     private final UserService userService;
