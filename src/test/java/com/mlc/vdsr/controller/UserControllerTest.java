@@ -2,6 +2,7 @@ package com.mlc.vdsr.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mlc.vdsr.dto.UserDTO;
+import net.bytebuddy.utility.RandomString;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class UserControllerTest {
     private ObjectMapper objectMapper;
 
     /**
-     * Tests get user info.
+     * Tests create user.
      *
      * @throws Exception if something goes wrong.
      */
@@ -51,6 +52,41 @@ public class UserControllerTest {
                 APPLICATION_JSON)).andExpect(status().isOk()).andReturn();
 
         assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"user_created_successfully\"}"));
+    }
+
+    /**
+     * Tests create user with invalid fields.
+     *
+     * @throws Exception if something goes wrong.
+     */
+    @Test
+    void createUserWithInvalidDataTest() throws Exception {
+        // Test with blank fields.
+        UserDTO userDTO = new UserDTO("", "");
+
+        MvcResult result = mvc.perform(post("/api/user").content(objectMapper.writeValueAsString(userDTO)).contentType(
+                APPLICATION_JSON)).andExpect(status().isBadRequest()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("{\"field\":\"firstName\",\"message\":\"first_name_is_required\"}"));
+        assertTrue(result.getResponse().getContentAsString().contains("{\"field\":\"lastName\",\"message\":\"last_name_is_required\"}"));
+
+        // Test with null fields.
+        userDTO = new UserDTO(null, null);
+
+        result = mvc.perform(post("/api/user").content(objectMapper.writeValueAsString(userDTO)).contentType(
+                APPLICATION_JSON)).andExpect(status().isBadRequest()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("{\"field\":\"firstName\",\"message\":\"first_name_is_required\"}"));
+        assertTrue(result.getResponse().getContentAsString().contains("{\"field\":\"lastName\",\"message\":\"last_name_is_required\"}"));
+
+        // Test with too long fields.
+        userDTO = new UserDTO(RandomString.make(256), RandomString.make(256));
+
+        result = mvc.perform(post("/api/user").content(objectMapper.writeValueAsString(userDTO)).contentType(
+                APPLICATION_JSON)).andExpect(status().isBadRequest()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("{\"field\":\"firstName\",\"message\":\"first_name_too_long\"}"));
+        assertTrue(result.getResponse().getContentAsString().contains("{\"field\":\"lastName\",\"message\":\"last_name_too_long\"}"));
     }
 
     /**
@@ -88,12 +124,10 @@ public class UserControllerTest {
      * @throws Exception if something goes wrong.
      */
     @Test
-    @Disabled
     void getUserByIdNonexisting() throws Exception {
-        // TODO: Add exception handling and return ErrorDTO or something like that on exceptions. After that fix this text
-        MvcResult result = mvc.perform(get("/api/user/1")).andExpect(status().isInternalServerError()).andReturn();
+        MvcResult result = mvc.perform(get("/api/user/1")).andExpect(status().isBadRequest()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("{\"firstName\":\"artiom\",\"lastName\":\"bozieac\"}"));
+        assertTrue(result.getResponse().getContentAsString().contains("\"status\":400,\"error\":\"user_not_found\""));
     }
 
     /**
@@ -119,15 +153,13 @@ public class UserControllerTest {
      * @throws Exception if something goes wrong.
      */
     @Test
-    @Disabled
     void updateNonexistingUserTest() throws Exception {
-        // TODO: Add exception handling and return ErrorDTO or something like that on exceptions. After that fix this text
         UserDTO userDTO = new UserDTO("razvan", "smeu");
 
         MvcResult result = mvc.perform(put("/api/user/1").content(objectMapper.writeValueAsString(userDTO)).contentType(
-                APPLICATION_JSON)).andExpect(status().isOk()).andReturn();
+                APPLICATION_JSON)).andExpect(status().isBadRequest()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("{\"firstName\":\"razvan\",\"lastName\":\"smeu\"}"));
+        assertTrue(result.getResponse().getContentAsString().contains("\"status\":400,\"error\":\"user_not_found\""));
     }
 
     /**
@@ -150,12 +182,10 @@ public class UserControllerTest {
      * @throws Exception if something goes wrong.
      */
     @Test
-    @Disabled
     void deleteNonexistingUserTest() throws Exception {
-        // TODO: Add exception handling and return ErrorDTO or something like that on exceptions. After that fix this text
-        MvcResult result = mvc.perform(delete("/api/user/1")).andExpect(status().isOk()).andReturn();
+        MvcResult result = mvc.perform(delete("/api/user/1")).andExpect(status().isBadRequest()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"User deleted successfully\"}"));
+        assertTrue(result.getResponse().getContentAsString().contains("\"status\":400,\"error\":\"user_not_found\""));
     }
 
     /**
