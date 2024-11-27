@@ -15,3 +15,7 @@
   spring.datasource.driverClassName=org.postgresql.Driver
   ```
 2. Run `mvn exec:java` via terminal/console. Or just press `Build & Run` button in your IDE.
+
+## How to see existing endpoints?
+ - After starting the app you can access `http://localhost:8081/swagger-ui/index.html` to view the existing endpoints.
+![Image of Swagger endpoints](img/swagger.png)
