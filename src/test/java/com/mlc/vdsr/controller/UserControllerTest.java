@@ -50,7 +50,7 @@ public class UserControllerTest {
         MvcResult result = mvc.perform(post("/api/user").content(objectMapper.writeValueAsString(userDTO)).contentType(
                 APPLICATION_JSON)).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"User created successfully\"}"));
+        assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"user_created_successfully\"}"));
     }
 
     /**
@@ -141,7 +141,7 @@ public class UserControllerTest {
 
         MvcResult result = mvc.perform(delete("/api/user/1")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"User deleted successfully\"}"));
+        assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"user_deleted_successfully\"}"));
     }
 
     /**

@@ -33,7 +33,7 @@ public class UserController {
     public ResponseEntity<SuccessDTO> createUser(@Validated @RequestBody UserDTO userDTO) {
         this.userService.createUser(userDTO);
 
-        return new ResponseEntity<>(SuccessDTO.returnNewDTO(HttpStatus.OK.value(), "User created successfully"), HttpStatus.OK);
+        return new ResponseEntity<>(SuccessDTO.returnNewDTO(HttpStatus.OK.value(), "user_created_successfully"), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -50,6 +50,6 @@ public class UserController {
     public ResponseEntity<SuccessDTO> deleteUser(@PathVariable(value = "id") Long id) {
         this.userService.deleteUser(id);
 
-        return new ResponseEntity<>(SuccessDTO.returnNewDTO(HttpStatus.OK.value(), "User deleted successfully"), HttpStatus.OK);
+        return new ResponseEntity<>(SuccessDTO.returnNewDTO(HttpStatus.OK.value(), "user_deleted_successfully"), HttpStatus.OK);
     }
 }
