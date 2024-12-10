@@ -30,24 +30,22 @@ public class User extends BaseEntity {
 
     @NotNull(message = "first_name_is_required")
     @NotBlank(message = "first_name_is_required")
-    @Size(max = 128, message = "first_name_too_long")
+    @Size(max = 255, message = "first_name_length_invalid")
     private String firstName;
 
     @NotNull(message = "last_name_is_required")
     @NotBlank(message = "last_name_is_required")
-    @Size(max = 128, message = "last_name_too_long")
+    @Size(max = 255, message = "last_name_length_invalid")
     private String lastName;
 
     @NotNull(message = "username_is_required")
     @NotBlank(message = "username_is_required")
-    @Size(min = 4, message = "username_too_short")
-    @Size(max = 128, message = "username_too_long")
+    @Size(min = 4, max = 255, message = "username_length_invalid")
     private String username;
 
     @NotNull(message = "password_is_required")
     @NotBlank(message = "password_is_required")
-    @Size(min = 4, message = "password_too_short")
-    @Size(max = 128, message = "password_too_long")
+    @Size(min = 4, max = 255, message = "password_length_invalid")
     private String password;
 
     /**
@@ -56,8 +54,7 @@ public class User extends BaseEntity {
     @Email(message = "email_is_invalid", regexp = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-z A-Z]{2,7}$")
     @NotNull(message = "email_is_required")
     @NotBlank(message = "email_is_required")
-    @Size(min = 6, message = "email_too_short")
-    @Size(max = 255, message = "email_too_long")
+    @Size(min = 4, max = 255, message = "email_length_invalid")
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
