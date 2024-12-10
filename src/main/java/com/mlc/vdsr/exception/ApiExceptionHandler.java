@@ -79,8 +79,59 @@ public class ApiExceptionHandler {
         ErrorDTO error = new ErrorDTO();
         error.setTimestamp(LocalDateTime.now());
         error.setError(e.getMessage());
-        error.setStatus(HttpStatus.BAD_REQUEST.value());
+        error.setStatus(HttpStatus.NOT_FOUND.value());
 
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Handles the {@link UsernameNotFoundException}
+     *
+     * @param e is the thrown exception.
+     * @return <code>ResponseEntity</code>
+     */
+    @ExceptionHandler(UsernameNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ResponseEntity<Object> handleUsernameNotFoundException(UsernameNotFoundException e) {
+        ErrorDTO error = new ErrorDTO();
+        error.setTimestamp(LocalDateTime.now());
+        error.setError(e.getMessage());
+        error.setStatus(HttpStatus.NOT_FOUND.value());
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Handles the {@link EmailAlreadyTakenException}
+     *
+     * @param e is the thrown exception.
+     * @return <code>ResponseEntity</code>
+     */
+    @ExceptionHandler(value = {EmailAlreadyTakenException.class})
+    @ResponseStatus(value = HttpStatus.CONFLICT)
+    public ResponseEntity<Object> handleEmailAlreadyTakenException(EmailAlreadyTakenException e) {
+        ErrorDTO errors = new ErrorDTO();
+        errors.setTimestamp(LocalDateTime.now());
+        errors.setError(e.getMessage());
+        errors.setStatus(HttpStatus.CONFLICT.value());
+
+        return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
+    }
+
+    /**
+     * Handles the {@link UsernameAlreadyTakenException}
+     *
+     * @param e is the thrown exception.
+     * @return <code>ResponseEntity</code>
+     */
+    @ExceptionHandler(value = {UsernameAlreadyTakenException.class})
+    @ResponseStatus(value = HttpStatus.CONFLICT)
+    public ResponseEntity<Object> handleUsernameAlreadyTakenException(UsernameAlreadyTakenException e) {
+        ErrorDTO errors = new ErrorDTO();
+        errors.setTimestamp(LocalDateTime.now());
+        errors.setError(e.getMessage());
+        errors.setStatus(HttpStatus.CONFLICT.value());
+
+        return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
     }
 }

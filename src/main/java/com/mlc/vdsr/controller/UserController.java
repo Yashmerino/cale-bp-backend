@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * User related endpoints.
  */
-@Tag(name = "1. User", description = "These endpoints are used to perform operations on users.")
+@Tag(name = "2. User", description = "These endpoints are used to perform operations on users.")
 @SecurityRequirement(name = SwaggerConfig.SECURITY_SCHEME_NAME)
 @RestController
 @Validated
