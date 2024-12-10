@@ -2,10 +2,15 @@ package com.mlc.vdsr.entity;
 
 import com.mlc.vdsr.entity.base.BaseEntity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * User entity class.
@@ -32,4 +37,30 @@ public class User extends BaseEntity {
     @NotBlank(message = "last_name_is_required")
     @Size(max = 128, message = "last_name_too_long")
     private String lastName;
+
+    @NotNull(message = "username_is_required")
+    @NotBlank(message = "username_is_required")
+    @Size(min = 4, message = "username_too_short")
+    @Size(max = 128, message = "username_too_long")
+    private String username;
+
+    @NotNull(message = "password_is_required")
+    @NotBlank(message = "password_is_required")
+    @Size(min = 4, message = "password_too_short")
+    @Size(max = 128, message = "password_too_long")
+    private String password;
+
+    /**
+     * User's email.
+     */
+    @Email(message = "email_is_invalid", regexp = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-z A-Z]{2,7}$")
+    @NotNull(message = "email_is_required")
+    @NotBlank(message = "email_is_required")
+    @Size(min = 6, message = "email_too_short")
+    @Size(max = 255, message = "email_too_long")
+    private String email;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<Role> roles = new HashSet<>();
 }
