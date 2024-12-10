@@ -57,25 +57,6 @@ public class UserController {
         return this.userService.getAllUsers();
     }
 
-    @Operation(summary = "Creates a user.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = SwaggerHttpStatus.OK, description = SwaggerMessages.SUCCESS,
-                    content = @Content),
-            @ApiResponse(responseCode = SwaggerHttpStatus.FORBIDDEN, description = SwaggerMessages.FORBIDDEN,
-                    content = @Content),
-            @ApiResponse(responseCode = SwaggerHttpStatus.UNAUTHORIZED, description = SwaggerMessages.UNAUTHORIZED,
-                    content = @Content),
-            @ApiResponse(responseCode = SwaggerHttpStatus.BAD_REQUEST, description = SwaggerMessages.BAD_REQUEST,
-                    content = @Content),
-            @ApiResponse(responseCode = SwaggerHttpStatus.INTERNAL_SERVER_ERROR, description = SwaggerMessages.INTERNAL_SERVER_ERROR,
-                    content = @Content)})
-    @PostMapping
-    public ResponseEntity<SuccessDTO> createUser(@Validated @RequestBody UserDTO userDTO) {
-        this.userService.createUser(userDTO);
-
-        return new ResponseEntity<>(SuccessDTO.returnNewDTO(HttpStatus.OK.value(), "user_created_successfully"), HttpStatus.OK);
-    }
-
     @Operation(summary = "Returns user by id.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = SwaggerHttpStatus.OK, description = SwaggerMessages.SUCCESS,

@@ -84,5 +84,18 @@ public class Initializer implements CommandLineRunner {
                     user.setRoles(new HashSet<>(List.of(ownerRole)));
                     return userRepository.save(user);
                 });
+
+
+        userRepository.findByUsername("artiombozieac")
+                .orElseGet(() -> {
+                    User user = new User();
+                    user.setUsername("artiombozieac");
+                    user.setPassword(passwordEncoder.encode("test"));
+                    user.setFirstName("artiom");
+                    user.setLastName("bozieac");
+                    user.setEmail("test@test.com");
+                    user.setRoles(new HashSet<>(List.of(ownerRole)));
+                    return userRepository.save(user);
+                });
     }
 }

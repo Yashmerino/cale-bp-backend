@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -40,68 +41,16 @@ public class UserControllerTest {
     private ObjectMapper objectMapper;
 
     /**
-     * Tests create user.
-     *
-     * @throws Exception if something goes wrong.
-     */
-    @Test
-    void createUserTest() throws Exception {
-        UserDTO userDTO = new UserDTO("artiom", "bozieac");
-
-        MvcResult result = mvc.perform(post("/api/user").content(objectMapper.writeValueAsString(userDTO)).contentType(
-                APPLICATION_JSON)).andExpect(status().isOk()).andReturn();
-
-        assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"user_created_successfully\"}"));
-    }
-
-    /**
-     * Tests create user with invalid fields.
-     *
-     * @throws Exception if something goes wrong.
-     */
-    @Test
-    void createUserWithInvalidDataTest() throws Exception {
-        // Test with blank fields.
-        UserDTO userDTO = new UserDTO("", "");
-
-        MvcResult result = mvc.perform(post("/api/user").content(objectMapper.writeValueAsString(userDTO)).contentType(
-                APPLICATION_JSON)).andExpect(status().isBadRequest()).andReturn();
-
-        assertTrue(result.getResponse().getContentAsString().contains("{\"field\":\"firstName\",\"message\":\"first_name_is_required\"}"));
-        assertTrue(result.getResponse().getContentAsString().contains("{\"field\":\"lastName\",\"message\":\"last_name_is_required\"}"));
-
-        // Test with null fields.
-        userDTO = new UserDTO(null, null);
-
-        result = mvc.perform(post("/api/user").content(objectMapper.writeValueAsString(userDTO)).contentType(
-                APPLICATION_JSON)).andExpect(status().isBadRequest()).andReturn();
-
-        assertTrue(result.getResponse().getContentAsString().contains("{\"field\":\"firstName\",\"message\":\"first_name_is_required\"}"));
-        assertTrue(result.getResponse().getContentAsString().contains("{\"field\":\"lastName\",\"message\":\"last_name_is_required\"}"));
-
-        // Test with too long fields.
-        userDTO = new UserDTO(RandomString.make(256), RandomString.make(256));
-
-        result = mvc.perform(post("/api/user").content(objectMapper.writeValueAsString(userDTO)).contentType(
-                APPLICATION_JSON)).andExpect(status().isBadRequest()).andReturn();
-
-        assertTrue(result.getResponse().getContentAsString().contains("{\"field\":\"firstName\",\"message\":\"first_name_too_long\"}"));
-        assertTrue(result.getResponse().getContentAsString().contains("{\"field\":\"lastName\",\"message\":\"last_name_too_long\"}"));
-    }
-
-    /**
      * Tests get all users
      *
      * @throws Exception if something goes wrong.
      */
     @Test
+    @WithMockUser(username = "owner", authorities = {"OWNER"})
     void getAllUsersTest() throws Exception {
-        assertTrue(this.createUser("artiom", "bozieac"));
-        assertTrue(this.createUser("razvan", "smeu"));
-
         MvcResult result = mvc.perform(get("/api/user")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"firstName\":\"artiom\",\"lastName\":\"bozieac\"},{\"firstName\":\"razvan\",\"lastName\":\"smeu\"}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"firstName\":\"owner\",\"lastName\":\"owner\",\"username\":\"owner\",\"email\":\"owner@test.com\"},{\"firstName\":\"artiom\",\"lastName\":\"bozieac\",\"username\":\"artiombozieac\",\"email\":\"test@test.com\"}]"));
     }
 
     /**
@@ -110,12 +59,11 @@ public class UserControllerTest {
      * @throws Exception if something goes wrong.
      */
     @Test
+    @WithMockUser(username = "owner", authorities = {"OWNER"})
     void getUserById() throws Exception {
-        assertTrue(this.createUser("artiom", "bozieac"));
-
         MvcResult result = mvc.perform(get("/api/user/1")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("{\"firstName\":\"artiom\",\"lastName\":\"bozieac\"}"));
+        assertTrue(result.getResponse().getContentAsString().contains("{\"firstName\":\"owner\",\"lastName\":\"owner\",\"username\":\"owner\",\"email\":\"owner@test.com\"}"));
     }
 
     /**
@@ -124,10 +72,11 @@ public class UserControllerTest {
      * @throws Exception if something goes wrong.
      */
     @Test
+    @WithMockUser(username = "owner", authorities = {"OWNER"})
     void getUserByIdNonexisting() throws Exception {
-        MvcResult result = mvc.perform(get("/api/user/1")).andExpect(status().isBadRequest()).andReturn();
+        MvcResult result = mvc.perform(get("/api/user/99999")).andExpect(status().isNotFound()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("\"status\":400,\"error\":\"user_not_found\""));
+        assertTrue(result.getResponse().getContentAsString().contains("\"status\":404,\"error\":\"user_not_found\""));
     }
 
     /**
@@ -136,15 +85,14 @@ public class UserControllerTest {
      * @throws Exception if something goes wrong.
      */
     @Test
+    @WithMockUser(username = "owner", authorities = {"OWNER"})
     void updateUserTest() throws Exception {
-        assertTrue(this.createUser("artiom", "bozieac"));
-
-        UserDTO userDTO = new UserDTO("razvan", "smeu");
+        UserDTO userDTO = new UserDTO("razvan", "smeu", "username2", "test2@mail.com");
 
         MvcResult result = mvc.perform(put("/api/user/1").content(objectMapper.writeValueAsString(userDTO)).contentType(
                 APPLICATION_JSON)).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("{\"firstName\":\"razvan\",\"lastName\":\"smeu\"}"));
+        assertTrue(result.getResponse().getContentAsString().contains("{\"firstName\":\"razvan\",\"lastName\":\"smeu\",\"username\":\"owner\",\"email\":\"owner@test.com\"}"));
     }
 
     /**
@@ -153,13 +101,14 @@ public class UserControllerTest {
      * @throws Exception if something goes wrong.
      */
     @Test
+    @WithMockUser(username = "owner", authorities = {"OWNER"})
     void updateNonexistingUserTest() throws Exception {
-        UserDTO userDTO = new UserDTO("razvan", "smeu");
+        UserDTO userDTO = new UserDTO("razvan", "smeu", "username", "test@mail.com");
 
-        MvcResult result = mvc.perform(put("/api/user/1").content(objectMapper.writeValueAsString(userDTO)).contentType(
-                APPLICATION_JSON)).andExpect(status().isBadRequest()).andReturn();
+        MvcResult result = mvc.perform(put("/api/user/9999").content(objectMapper.writeValueAsString(userDTO)).contentType(
+                APPLICATION_JSON)).andExpect(status().isNotFound()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("\"status\":400,\"error\":\"user_not_found\""));
+        assertTrue(result.getResponse().getContentAsString().contains("\"status\":404,\"error\":\"user_not_found\""));
     }
 
     /**
@@ -168,9 +117,8 @@ public class UserControllerTest {
      * @throws Exception if something goes wrong.
      */
     @Test
+    @WithMockUser(username = "owner", authorities = {"OWNER"})
     void deleteUserTest() throws Exception {
-        assertTrue(this.createUser("artiom", "bozieac"));
-
         MvcResult result = mvc.perform(delete("/api/user/1")).andExpect(status().isOk()).andReturn();
 
         assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"user_deleted_successfully\"}"));
@@ -182,22 +130,10 @@ public class UserControllerTest {
      * @throws Exception if something goes wrong.
      */
     @Test
+    @WithMockUser(username = "owner", authorities = {"OWNER"})
     void deleteNonexistingUserTest() throws Exception {
-        MvcResult result = mvc.perform(delete("/api/user/1")).andExpect(status().isBadRequest()).andReturn();
+        MvcResult result = mvc.perform(delete("/api/user/99")).andExpect(status().isNotFound()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("\"status\":400,\"error\":\"user_not_found\""));
-    }
-
-    /**
-     * Helper method that creates a user.
-     *
-     * @param firstName is the user's first name.
-     * @param lastName is the user's last name.
-     */
-    private boolean createUser(String firstName, String lastName) throws Exception {
-        UserDTO userDTO = new UserDTO(firstName, lastName);
-        mvc.perform(post("/api/user").content(objectMapper.writeValueAsString(userDTO)).contentType(APPLICATION_JSON));
-
-        return true;
+        assertTrue(result.getResponse().getContentAsString().contains("\"status\":404,\"error\":\"user_not_found\""));
     }
 }

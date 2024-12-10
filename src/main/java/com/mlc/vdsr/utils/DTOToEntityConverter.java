@@ -12,6 +12,8 @@ public class DTOToEntityConverter {
         User user = new User();
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
+        user.setEmail(userDTO.getEmail());
+        user.setUsername(userDTO.getUsername());
 
         return user;
     }
