@@ -8,6 +8,13 @@ import com.mlc.vdsr.entity.User;
  */
 public class DTOToEntityConverter {
 
+    /**
+     * Converts User DTO to User Entity.
+     *
+     * @param userDTO is the User's DTO.
+     *
+     * @return User entity.
+     */
     public static User convertToUserEntity(UserDTO userDTO) {
         User user = new User();
         user.setFirstName(userDTO.getFirstName());

@@ -92,7 +92,7 @@ public class UserControllerTest {
         MvcResult result = mvc.perform(put("/api/user/1").content(objectMapper.writeValueAsString(userDTO)).contentType(
                 APPLICATION_JSON)).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("{\"firstName\":\"razvan\",\"lastName\":\"smeu\",\"username\":\"owner\",\"email\":\"owner@test.com\"}"));
+        assertTrue(result.getResponse().getContentAsString().contains("{\"firstName\":\"razvan\",\"lastName\":\"smeu\",\"username\":\"owner\",\"email\":\"test2@mail.com\"}"));
     }
 
     /**

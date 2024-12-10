@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 /**
- * Implementation for {@link AuthService}
+ * Production implementation for {@link AuthService}
  */
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -34,12 +34,12 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
 
     /**
-     * Users' repository.
+     * Users repository.
      */
     private final UserRepository userRepository;
 
     /**
-     * Roles' repository.
+     * Roles repository.
      */
     private final RoleRepository roleRepository;
 

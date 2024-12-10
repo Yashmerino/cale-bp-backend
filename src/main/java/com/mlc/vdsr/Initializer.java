@@ -21,14 +21,35 @@ import java.util.List;
 @Profile("!test")
 public class Initializer implements CommandLineRunner {
 
+    /**
+     * Application's properties.
+     */
     private final ApplicationProperties applicationProperties;
 
+    /**
+     * Password encoder.
+     */
     private final PasswordEncoder passwordEncoder;
 
+
+    /**
+     * Roles repository.
+     */
     private final RoleRepository roleRepository;
 
+    /**
+     * Users repository.
+     */
     private final UserRepository userRepository;
 
+    /**
+     * Constructor.
+     *
+     * @param applicationProperties is the application's properties.
+     * @param passwordEncoder is the password encoder.
+     * @param userRepository is the users repository.
+     * @param roleRepository is the roles repository.
+     */
     public Initializer(ApplicationProperties applicationProperties, PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository) {
         this.applicationProperties = applicationProperties;
         this.passwordEncoder = passwordEncoder;

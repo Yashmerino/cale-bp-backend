@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Controller for authentication.
  */
-@Tag(name = "1. Authentication/Authorization", description = "These endpoints are used to register/login.")
+@Tag(name = "0. Authentication/Authorization", description = "These endpoints are used to register/login.")
 @SecurityRequirement(name = SwaggerConfig.SECURITY_SCHEME_NAME)
 @RestController
 @RequestMapping("/api/auth")

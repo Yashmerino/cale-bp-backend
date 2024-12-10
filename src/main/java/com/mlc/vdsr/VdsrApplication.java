@@ -9,6 +9,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class VdsrApplication {
 
+    /**
+     * Entry point.
+     *
+     * @param args is the application's arguments.
+     */
     public static void main(String[] args) {
         SpringApplication.run(VdsrApplication.class, args);
     }

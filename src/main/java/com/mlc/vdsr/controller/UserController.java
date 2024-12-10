@@ -24,24 +24,37 @@ import java.util.List;
 /**
  * User related endpoints.
  */
-@Tag(name = "2. User", description = "These endpoints are used to perform operations on users.")
+@Tag(name = "1. User", description = "These endpoints are used to perform operations on users.")
 @SecurityRequirement(name = SwaggerConfig.SECURITY_SCHEME_NAME)
 @RestController
 @Validated
 @RequestMapping("/api/user")
 public class UserController {
 
+    /**
+     * Users service.
+     */
     private final UserService userService;
 
+    /**
+     * Constructor.
+     *
+     * @param userService is the users service.
+     */
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
+    /**
+     * Returns all existing users.
+     *
+     * @return List of UserDTOs.
+     */
     @Operation(summary = "Returns all users.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = SwaggerHttpStatus.OK, description = SwaggerMessages.SUCCESS,
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(type="array", implementation = UserDTO.class))}),
+                            schema = @Schema(type = "array", implementation = UserDTO.class))}),
             @ApiResponse(responseCode = SwaggerHttpStatus.NOT_FOUND, description = SwaggerMessages.USER_DOES_NOT_EXIST,
                     content = @Content),
             @ApiResponse(responseCode = SwaggerHttpStatus.FORBIDDEN, description = SwaggerMessages.FORBIDDEN,
@@ -57,6 +70,12 @@ public class UserController {
         return this.userService.getAllUsers();
     }
 
+    /**
+     * Returns user by id.
+     *
+     * @param id is the user's id.
+     * @return UserDTO.
+     */
     @Operation(summary = "Returns user by id.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = SwaggerHttpStatus.OK, description = SwaggerMessages.SUCCESS,
@@ -77,6 +96,13 @@ public class UserController {
         return this.userService.getUserById(id);
     }
 
+    /**
+     * Updates user's information.
+     *
+     * @param id      is the user's id.
+     * @param userDTO is the user's DTO with updated information.
+     * @return The updated user.
+     */
     @Operation(summary = "Updates user information.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = SwaggerHttpStatus.OK, description = SwaggerMessages.SUCCESS,
@@ -97,6 +123,13 @@ public class UserController {
         return this.userService.updateUser(id, userDTO);
     }
 
+    /**
+     * Deletes a user.
+     *
+     * @param id is the user's id.
+     *
+     * @return SuccessDTO.
+     */
     @Operation(summary = "Deletes a user.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = SwaggerHttpStatus.OK, description = SwaggerMessages.SUCCESS,

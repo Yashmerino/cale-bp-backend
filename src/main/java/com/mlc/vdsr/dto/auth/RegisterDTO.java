@@ -38,11 +38,17 @@ public class RegisterDTO {
     @Size(min = 6, max = 255, message = "username_length_invalid")
     private String username;
 
+    /**
+     * User's first name.
+     */
     @NotNull(message = "first_name_is_required")
     @NotBlank(message = "first_name_is_required")
     @Size(max = 128, message = "first_name_too_long")
     private String firstName;
 
+    /**
+     * User's last name.
+     */
     @NotNull(message = "last_name_is_required")
     @NotBlank(message = "last_name_is_required")
     @Size(max = 128, message = "last_name_too_long")
