@@ -21,9 +21,11 @@
   owner.email = YOUR_OWNER_EMAIL
   owner.password = YOUR_OWNER_PASSWORD
   ```
-P.S: You can use [this website](https://jwtsecret.com/) to generate a JWT token.
+> You can use [this website](https://jwtsecret.com/) to generate a JWT token
+
 2. Run `mvn exec:java` via terminal/console. Or just press `Build & Run` button in your IDE.
-3. An Owner user with `owner` username and `YOUR_OWNER_PASSWORD` password which you can use to login to the app will be created by default.
+   
+> An Owner user with `owner` username and `YOUR_OWNER_PASSWORD` password which you can use to login to the app will be created by default.
 
 ## How to view existing endpoints?
  - After starting the app you can access `http://localhost:8081/swagger-ui/index.html` to view the existing endpoints.
