@@ -25,13 +25,6 @@ import java.util.Set;
 public class User extends BaseEntity {
 
     /**
-     * User's id.
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    /**
      * User's first name.
      */
     @NotNull(message = "first_name_is_required")
