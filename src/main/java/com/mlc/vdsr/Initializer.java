@@ -5,6 +5,7 @@ import com.mlc.vdsr.entity.User;
 import com.mlc.vdsr.repository.RoleRepository;
 import com.mlc.vdsr.repository.UserRepository;
 import com.mlc.vdsr.utils.ApplicationProperties;
+import com.mlc.vdsr.utils.RoleEnum;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -59,40 +60,14 @@ public class Initializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        Role hrRole = roleRepository.findByName("HR")
-                .orElseGet(() -> {
-                    Role role = new Role();
-                    role.setName("HR");
-                    return roleRepository.save(role);
-                });
-
-        Role accountingRole = roleRepository.findByName("ACCOUNTING")
-                .orElseGet(() -> {
-                    Role role = new Role();
-                    role.setName("ACCOUNTING");
-                    return roleRepository.save(role);
-                });
-
-        Role pmRole = roleRepository.findByName("PM")
-                .orElseGet(() -> {
-                    Role role = new Role();
-                    role.setName("PM");
-                    return roleRepository.save(role);
-                });
-
-        Role tlRole = roleRepository.findByName("TL")
-                .orElseGet(() -> {
-                    Role role = new Role();
-                    role.setName("TL");
-                    return roleRepository.save(role);
-                });
-
-        Role ownerRole = roleRepository.findByName("OWNER")
-                .orElseGet(() -> {
-                    Role role = new Role();
-                    role.setName("OWNER");
-                    return roleRepository.save(role);
-                });
+        for(RoleEnum roleEnum : RoleEnum.values()) {
+            roleRepository.findByName(roleEnum.name())
+                    .orElseGet(() -> {
+                        Role role = new Role();
+                        role.setName(roleEnum.name());
+                        return roleRepository.save(role);
+                    });
+        }
 
         userRepository.findByUsername("owner")
                 .orElseGet(() -> {
@@ -102,7 +77,7 @@ public class Initializer implements CommandLineRunner {
                     user.setFirstName("owner");
                     user.setLastName("owner");
                     user.setEmail(applicationProperties.getOwnerEmail());
-                    user.setRoles(new HashSet<>(List.of(ownerRole)));
+                    user.setRoles(new HashSet<>(List.of(roleRepository.findByName(RoleEnum.OWNER.name()).get())));
                     return userRepository.save(user);
                 });
     }

@@ -11,9 +11,19 @@ public enum RoleEnum {
     HR,
 
     /**
+     * Human resource leader.
+     */
+    HR_LEADER,
+
+    /**
      * Accounting department.
      */
     ACCOUNTING,
+
+    /**
+     * Accounting department leader.
+     */
+    ACCOUNTING_LEADER,
 
     /**
      * Team leader.
