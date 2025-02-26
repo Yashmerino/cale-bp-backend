@@ -1,6 +1,8 @@
 package com.mlc.vdsr.utils;
 
+import com.mlc.vdsr.dto.EventDTO;
 import com.mlc.vdsr.dto.UserDTO;
+import com.mlc.vdsr.entity.Event;
 import com.mlc.vdsr.entity.User;
 
 /**
@@ -23,5 +25,21 @@ public class DTOToEntityConverter {
         user.setUsername(userDTO.getUsername());
 
         return user;
+    }
+
+    /**
+     * Converts Event DTO to Event Entity.
+     *
+     * @param eventDTO is the Event's DTO.
+     *
+     * @return User entity.
+     */
+    public static Event convertToEventEntity(EventDTO eventDTO) {
+        Event event = new Event();
+        event.setTitle(eventDTO.getTitle());
+        event.setDate(eventDTO.getDate());
+        event.setIsImportant(eventDTO.getIsImportant());
+
+        return event;
     }
 }

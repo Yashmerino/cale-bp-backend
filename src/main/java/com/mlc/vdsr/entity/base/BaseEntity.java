@@ -43,5 +43,5 @@ public class BaseEntity {
      * Soft delete flag.
      */
     @Column(nullable = false)
-    private boolean deleted = false;
+    private Boolean deleted = false;
 }
