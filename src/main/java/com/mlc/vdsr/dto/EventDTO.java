@@ -30,15 +30,16 @@ public class EventDTO {
     /**
      * Event's title
      */
-    @NotNull(message = "event_is_required")
-    @NotBlank(message = "event_is_required")
-    @Size(max = 64, message = "event_title_length_invalid")
+    @NotNull(message = "title_is_required")
+    @NotBlank(message = "title_is_required")
+    @Size(max = 64, message = "title_length_invalid")
+    @Size(max = 64, min = 6, message = "title_length_invalid")
     private String title;
 
     /**
      * Event's date.
      */
-    @NotNull(message = "event_date_is_required")
+    @NotNull(message = "date_is_required")
     private Instant date;
 
     /**

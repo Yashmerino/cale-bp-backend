@@ -1,7 +1,9 @@
 package com.mlc.vdsr;
 
+import com.mlc.vdsr.entity.Event;
 import com.mlc.vdsr.entity.Role;
 import com.mlc.vdsr.entity.User;
+import com.mlc.vdsr.repository.EventRepository;
 import com.mlc.vdsr.repository.RoleRepository;
 import com.mlc.vdsr.repository.UserRepository;
 import com.mlc.vdsr.utils.ApplicationProperties;
@@ -11,6 +13,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.List;
 
@@ -36,6 +39,7 @@ public class Initializer implements CommandLineRunner {
      * Users repository.
      */
     private final UserRepository userRepository;
+    private final EventRepository eventRepository;
 
     /**
      * Constructor.
@@ -44,10 +48,11 @@ public class Initializer implements CommandLineRunner {
      * @param userRepository is the users repository.
      * @param roleRepository is the roles repository;
      */
-    public Initializer(PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository) {
+    public Initializer(PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository, EventRepository eventRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.eventRepository = eventRepository;
     }
 
     @Override
@@ -85,5 +90,11 @@ public class Initializer implements CommandLineRunner {
                     user.setRoles(new HashSet<>(List.of(roleRepository.findByName(RoleEnum.OWNER.name()).get())));
                     return userRepository.save(user);
                 });
+
+        Event event = new Event();
+        event.setDate(Instant.now());
+        event.setTitle("Event test");
+        event.setIsImportant(false);
+        eventRepository.save(event);
     }
 }
