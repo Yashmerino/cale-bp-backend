@@ -19,6 +19,11 @@ import lombok.Setter;
 public class UserDTO {
 
     /**
+     * User's id.
+     */
+    private Long id;
+
+    /**
      * User's first name.
      */
     @NotNull(message = "first_name_is_required")
