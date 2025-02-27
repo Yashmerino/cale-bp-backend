@@ -59,7 +59,7 @@ public class EventControllerTest {
     @BeforeEach
     void setup() {
         eventDTO = new EventDTO();
-        eventDTO.setTitle("Event test");
+        eventDTO.setTitle("Event");
         eventDTO.setDate(Instant.now());
         eventDTO.setIsImportant(true);
     }
@@ -74,7 +74,7 @@ public class EventControllerTest {
     void getAllEventsTest() throws Exception {
         MvcResult result = mvc.perform(get("/api/event")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Event test\""));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Event\""));
     }
 
     /**
@@ -87,7 +87,7 @@ public class EventControllerTest {
     void getAllEventsAsTLTest() throws Exception {
         MvcResult result = mvc.perform(get("/api/event")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Event test\""));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Event\""));
     }
 
     /**

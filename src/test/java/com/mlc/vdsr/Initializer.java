@@ -1,12 +1,17 @@
 package com.mlc.vdsr;
 
+import com.mlc.vdsr.dto.RecruitmentDTO;
 import com.mlc.vdsr.entity.Event;
+import com.mlc.vdsr.entity.Recruitment;
 import com.mlc.vdsr.entity.Role;
 import com.mlc.vdsr.entity.User;
 import com.mlc.vdsr.repository.EventRepository;
+import com.mlc.vdsr.repository.RecruitmentRepository;
 import com.mlc.vdsr.repository.RoleRepository;
 import com.mlc.vdsr.repository.UserRepository;
 import com.mlc.vdsr.utils.ApplicationProperties;
+import com.mlc.vdsr.utils.Availability;
+import com.mlc.vdsr.utils.Department;
 import com.mlc.vdsr.utils.RoleEnum;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -40,6 +45,7 @@ public class Initializer implements CommandLineRunner {
      */
     private final UserRepository userRepository;
     private final EventRepository eventRepository;
+    private final RecruitmentRepository recruitmentRepository;
 
     /**
      * Constructor.
@@ -48,11 +54,12 @@ public class Initializer implements CommandLineRunner {
      * @param userRepository is the users repository.
      * @param roleRepository is the roles repository;
      */
-    public Initializer(PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository, EventRepository eventRepository) {
+    public Initializer(PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository, EventRepository eventRepository, RecruitmentRepository recruitmentRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.eventRepository = eventRepository;
+        this.recruitmentRepository = recruitmentRepository;
     }
 
     @Override
@@ -93,8 +100,15 @@ public class Initializer implements CommandLineRunner {
 
         Event event = new Event();
         event.setDate(Instant.now());
-        event.setTitle("Event test");
+        event.setTitle("Event");
         event.setIsImportant(false);
         eventRepository.save(event);
+
+        Recruitment recruitment = new Recruitment();
+        recruitment.setTitle("Recruitment");
+        recruitment.setDepartment(Department.IT);
+        recruitment.setAvailability(Availability.IMMEDIATE);
+        recruitment.setOpen(true);
+        recruitmentRepository.save(recruitment);
     }
 }

@@ -33,7 +33,7 @@ public class EventDTO {
     @NotNull(message = "title_is_required")
     @NotBlank(message = "title_is_required")
     @Size(max = 64, message = "title_length_invalid")
-    @Size(max = 64, min = 6, message = "title_length_invalid")
+    @Size(max = 64, min = 1, message = "title_length_invalid")
     private String title;
 
     /**
