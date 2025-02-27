@@ -104,6 +104,19 @@ public class EventControllerTest {
     }
 
     /**
+     * Tests delete non-existing event.
+     *
+     * @throws Exception if something goes wrong.
+     */
+    @Test
+    @WithMockUser(username = "owner", authorities = {"OWNER"})
+    void deleteNonExistingEventTest() throws Exception {
+        MvcResult result = mvc.perform(delete("/api/event/999")).andExpect(status().isNotFound()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("\"status\":404,\"error\":\"event_not_found\"}"));
+    }
+
+    /**
      * Tests delete event as team leader.
      *
      * @throws Exception if something goes wrong.

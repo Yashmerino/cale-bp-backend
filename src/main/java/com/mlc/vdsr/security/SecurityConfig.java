@@ -66,9 +66,14 @@ public class SecurityConfig {
     private static final String USERS_ALL_ENDPOINTS = "/api/user/**";
 
     /**
-     * Regex for all the endpoints related to users.
+     * Regex for all the endpoints related to events.
      */
     private static final String EVENTS_ALL_ENDPOINTS = "/api/event/**";
+
+    /**
+     * Regex for all the endpoints related to recruitments.
+     */
+    private static final String RECRUITMENTS_ALL_ENDPOINTS = "/api/recruitment/**";
 
     /**
      * Jwt Auth Entry Point to handle exceptions.
@@ -124,11 +129,14 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> {
                     request.requestMatchers(HttpMethod.GET, USERS_ALL_ENDPOINTS).hasAnyAuthority(ALL_ROLES);
                     request.requestMatchers(HttpMethod.GET, EVENTS_ALL_ENDPOINTS).hasAnyAuthority(ALL_ROLES);
+                    request.requestMatchers(HttpMethod.GET, RECRUITMENTS_ALL_ENDPOINTS).hasAnyAuthority(ALL_ROLES);
                     request.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll();
                     request.requestMatchers(HttpMethod.POST, "/api/auth/register").hasAnyAuthority(RoleEnum.OWNER.name());
                     request.requestMatchers(HttpMethod.DELETE, USERS_ALL_ENDPOINTS).hasAnyAuthority(RoleEnum.OWNER.name());
                     request.requestMatchers(HttpMethod.POST, EVENTS_ALL_ENDPOINTS).hasAnyAuthority(RoleEnum.OWNER.name(), RoleEnum.HR.name(), RoleEnum.HR_LEADER.name());
                     request.requestMatchers(HttpMethod.DELETE, EVENTS_ALL_ENDPOINTS).hasAnyAuthority(RoleEnum.OWNER.name(), RoleEnum.HR.name(), RoleEnum.HR_LEADER.name());
+                    request.requestMatchers(HttpMethod.POST, RECRUITMENTS_ALL_ENDPOINTS).hasAnyAuthority(RoleEnum.OWNER.name(), RoleEnum.HR.name(), RoleEnum.HR_LEADER.name());
+                    request.requestMatchers(HttpMethod.DELETE, RECRUITMENTS_ALL_ENDPOINTS).hasAnyAuthority(RoleEnum.OWNER.name(), RoleEnum.HR.name(), RoleEnum.HR_LEADER.name());
                     request.requestMatchers(SWAGGER_WHITELIST).permitAll();
                     request.requestMatchers(ACTUATOR_WHITELIST).permitAll();
                     request.anyRequest().authenticated();

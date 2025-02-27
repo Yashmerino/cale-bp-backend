@@ -4,6 +4,7 @@ import com.mlc.vdsr.dto.EventDTO;
 import com.mlc.vdsr.dto.UserDTO;
 import com.mlc.vdsr.entity.Event;
 import com.mlc.vdsr.entity.User;
+import com.mlc.vdsr.exception.EventNotFoundException;
 import com.mlc.vdsr.exception.UserNotFoundException;
 import com.mlc.vdsr.repository.EventRepository;
 import com.mlc.vdsr.repository.UserRepository;
@@ -73,9 +74,9 @@ public class EventServiceImpl implements EventService {
      */
     @Override
     public void deleteEvent(Long id) {
-        Event event = eventRepository.findById(id)
-                .orElseThrow(UserNotFoundException::new);
+        Event event = this.eventRepository.findById(id)
+                .orElseThrow(EventNotFoundException::new);
 
-        eventRepository.delete(event);
+        this.eventRepository.delete(event);
     }
 }

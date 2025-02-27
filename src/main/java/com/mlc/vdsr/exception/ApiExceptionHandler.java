@@ -134,4 +134,38 @@ public class ApiExceptionHandler {
 
         return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
     }
+
+    /**
+     * Handles the {@link EventNotFoundException}
+     *
+     * @param e is the thrown exception.
+     * @return <code>ResponseEntity</code>
+     */
+    @ExceptionHandler(EventNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ResponseEntity<Object> handleEventNotFoundException(EventNotFoundException e) {
+        ErrorDTO error = new ErrorDTO();
+        error.setTimestamp(LocalDateTime.now());
+        error.setError(e.getMessage());
+        error.setStatus(HttpStatus.NOT_FOUND.value());
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Handles the {@link RecruitmentNotFoundException}
+     *
+     * @param e is the thrown exception.
+     * @return <code>ResponseEntity</code>
+     */
+    @ExceptionHandler(RecruitmentNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ResponseEntity<Object> handleRecruitmentNotFoundException(RecruitmentNotFoundException e) {
+        ErrorDTO error = new ErrorDTO();
+        error.setTimestamp(LocalDateTime.now());
+        error.setError(e.getMessage());
+        error.setStatus(HttpStatus.NOT_FOUND.value());
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
 }

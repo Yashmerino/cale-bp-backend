@@ -1,8 +1,10 @@
 package com.mlc.vdsr.utils;
 
 import com.mlc.vdsr.dto.EventDTO;
+import com.mlc.vdsr.dto.RecruitmentDTO;
 import com.mlc.vdsr.dto.UserDTO;
 import com.mlc.vdsr.entity.Event;
+import com.mlc.vdsr.entity.Recruitment;
 import com.mlc.vdsr.entity.User;
 
 /**
@@ -43,5 +45,23 @@ public class EntityToDTOConverter {
         eventDTO.setIsImportant(event.getIsImportant());
 
         return eventDTO;
+    }
+
+    /**
+     * Converts Recruitment entity to Recruitment DTO.
+     *
+     * @param recruitment is the Recruitment's entity.
+     *
+     * @return Recruitment DTO.
+     */
+    public static RecruitmentDTO convertToRecruitmentEntity(Recruitment recruitment) {
+        RecruitmentDTO recruitmentDTO = new RecruitmentDTO();
+        recruitmentDTO.setId(recruitment.getId());
+        recruitmentDTO.setTitle(recruitment.getTitle());
+        recruitmentDTO.setDepartment(recruitment.getDepartment());
+        recruitmentDTO.setAvailability(recruitment.getAvailability());
+        recruitmentDTO.setOpen(recruitment.getOpen());
+
+        return recruitmentDTO;
     }
 }
