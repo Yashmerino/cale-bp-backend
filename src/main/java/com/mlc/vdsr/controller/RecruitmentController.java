@@ -1,9 +1,7 @@
 package com.mlc.vdsr.controller;
 
-import com.mlc.vdsr.dto.EventDTO;
 import com.mlc.vdsr.dto.RecruitmentDTO;
 import com.mlc.vdsr.dto.SuccessDTO;
-import com.mlc.vdsr.service.EventService;
 import com.mlc.vdsr.service.RecruitmentService;
 import com.mlc.vdsr.swagger.SwaggerConfig;
 import com.mlc.vdsr.swagger.SwaggerHttpStatus;
@@ -58,7 +56,7 @@ public class RecruitmentController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = SwaggerHttpStatus.OK, description = SwaggerMessages.SUCCESS,
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(type = "array", implementation = EventDTO.class))}),
+                            schema = @Schema(type = "array", implementation = RecruitmentDTO.class))}),
             @ApiResponse(responseCode = SwaggerHttpStatus.FORBIDDEN, description = SwaggerMessages.FORBIDDEN,
                     content = @Content),
             @ApiResponse(responseCode = SwaggerHttpStatus.UNAUTHORIZED, description = SwaggerMessages.UNAUTHORIZED,
