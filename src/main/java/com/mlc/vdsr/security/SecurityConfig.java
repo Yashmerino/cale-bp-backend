@@ -76,6 +76,11 @@ public class SecurityConfig {
     private static final String RECRUITMENTS_ALL_ENDPOINTS = "/api/recruitment/**";
 
     /**
+     * Regex for all the endpoints related to projects.
+     */
+    private static final String PROJECTS_ALL_ENDPOINTS = "/api/project/**";
+
+    /**
      * Jwt Auth Entry Point to handle exceptions.
      */
     private final JwtAuthEntryPoint jwtAuthEntryPoint;
@@ -130,6 +135,7 @@ public class SecurityConfig {
                     request.requestMatchers(HttpMethod.GET, USERS_ALL_ENDPOINTS).hasAnyAuthority(ALL_ROLES);
                     request.requestMatchers(HttpMethod.GET, EVENTS_ALL_ENDPOINTS).hasAnyAuthority(ALL_ROLES);
                     request.requestMatchers(HttpMethod.GET, RECRUITMENTS_ALL_ENDPOINTS).hasAnyAuthority(ALL_ROLES);
+                    request.requestMatchers(HttpMethod.GET, PROJECTS_ALL_ENDPOINTS).hasAnyAuthority(ALL_ROLES);
                     request.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll();
                     request.requestMatchers(HttpMethod.POST, "/api/auth/register").hasAnyAuthority(RoleEnum.OWNER.name());
                     request.requestMatchers(HttpMethod.DELETE, USERS_ALL_ENDPOINTS).hasAnyAuthority(RoleEnum.OWNER.name());
@@ -137,6 +143,8 @@ public class SecurityConfig {
                     request.requestMatchers(HttpMethod.DELETE, EVENTS_ALL_ENDPOINTS).hasAnyAuthority(RoleEnum.OWNER.name(), RoleEnum.HR.name(), RoleEnum.HR_LEADER.name());
                     request.requestMatchers(HttpMethod.POST, RECRUITMENTS_ALL_ENDPOINTS).hasAnyAuthority(RoleEnum.OWNER.name(), RoleEnum.HR.name(), RoleEnum.HR_LEADER.name());
                     request.requestMatchers(HttpMethod.DELETE, RECRUITMENTS_ALL_ENDPOINTS).hasAnyAuthority(RoleEnum.OWNER.name(), RoleEnum.HR.name(), RoleEnum.HR_LEADER.name());
+                    request.requestMatchers(HttpMethod.POST, PROJECTS_ALL_ENDPOINTS).hasAnyAuthority(RoleEnum.OWNER.name());
+                    request.requestMatchers(HttpMethod.DELETE, PROJECTS_ALL_ENDPOINTS).hasAnyAuthority(RoleEnum.OWNER.name());
                     request.requestMatchers(SWAGGER_WHITELIST).permitAll();
                     request.requestMatchers(ACTUATOR_WHITELIST).permitAll();
                     request.anyRequest().authenticated();

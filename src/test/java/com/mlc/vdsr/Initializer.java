@@ -1,14 +1,8 @@
 package com.mlc.vdsr;
 
 import com.mlc.vdsr.dto.RecruitmentDTO;
-import com.mlc.vdsr.entity.Event;
-import com.mlc.vdsr.entity.Recruitment;
-import com.mlc.vdsr.entity.Role;
-import com.mlc.vdsr.entity.User;
-import com.mlc.vdsr.repository.EventRepository;
-import com.mlc.vdsr.repository.RecruitmentRepository;
-import com.mlc.vdsr.repository.RoleRepository;
-import com.mlc.vdsr.repository.UserRepository;
+import com.mlc.vdsr.entity.*;
+import com.mlc.vdsr.repository.*;
 import com.mlc.vdsr.utils.ApplicationProperties;
 import com.mlc.vdsr.utils.Availability;
 import com.mlc.vdsr.utils.Department;
@@ -46,6 +40,7 @@ public class Initializer implements CommandLineRunner {
     private final UserRepository userRepository;
     private final EventRepository eventRepository;
     private final RecruitmentRepository recruitmentRepository;
+    private final ProjectRepository projectRepository;
 
     /**
      * Constructor.
@@ -54,12 +49,13 @@ public class Initializer implements CommandLineRunner {
      * @param userRepository is the users repository.
      * @param roleRepository is the roles repository;
      */
-    public Initializer(PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository, EventRepository eventRepository, RecruitmentRepository recruitmentRepository) {
+    public Initializer(PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository, EventRepository eventRepository, RecruitmentRepository recruitmentRepository, ProjectRepository projectRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.eventRepository = eventRepository;
         this.recruitmentRepository = recruitmentRepository;
+        this.projectRepository = projectRepository;
     }
 
     @Override
@@ -110,5 +106,9 @@ public class Initializer implements CommandLineRunner {
         recruitment.setAvailability(Availability.IMMEDIATE);
         recruitment.setOpen(true);
         recruitmentRepository.save(recruitment);
+
+        Project project = new Project();
+        project.setTitle("Project");
+        projectRepository.save(project);
     }
 }
