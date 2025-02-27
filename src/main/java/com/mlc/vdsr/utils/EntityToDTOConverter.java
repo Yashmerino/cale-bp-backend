@@ -1,9 +1,11 @@
 package com.mlc.vdsr.utils;
 
 import com.mlc.vdsr.dto.EventDTO;
+import com.mlc.vdsr.dto.ProjectDTO;
 import com.mlc.vdsr.dto.RecruitmentDTO;
 import com.mlc.vdsr.dto.UserDTO;
 import com.mlc.vdsr.entity.Event;
+import com.mlc.vdsr.entity.Project;
 import com.mlc.vdsr.entity.Recruitment;
 import com.mlc.vdsr.entity.User;
 
@@ -54,7 +56,7 @@ public class EntityToDTOConverter {
      *
      * @return Recruitment DTO.
      */
-    public static RecruitmentDTO convertToRecruitmentEntity(Recruitment recruitment) {
+    public static RecruitmentDTO convertToRecruitmentDTO(Recruitment recruitment) {
         RecruitmentDTO recruitmentDTO = new RecruitmentDTO();
         recruitmentDTO.setId(recruitment.getId());
         recruitmentDTO.setTitle(recruitment.getTitle());
@@ -63,5 +65,20 @@ public class EntityToDTOConverter {
         recruitmentDTO.setOpen(recruitment.getOpen());
 
         return recruitmentDTO;
+    }
+
+    /**
+     * Converts Project entity to Project DTO.
+     *
+     * @param project is the Project's entity.
+     *
+     * @return Recruitment DTO.
+     */
+    public static ProjectDTO convertToProjectDTO(Project project) {
+        ProjectDTO projectDTO = new ProjectDTO();
+        projectDTO.setId(project.getId());
+        projectDTO.setTitle(project.getTitle());
+
+        return projectDTO;
     }
 }

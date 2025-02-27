@@ -44,7 +44,7 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 
         List<RecruitmentDTO> recruitmentDTOS = new ArrayList<>();
         for (Recruitment recruitment : recruitments) {
-            recruitmentDTOS.add(EntityToDTOConverter.convertToRecruitmentEntity(recruitment));
+            recruitmentDTOS.add(EntityToDTOConverter.convertToRecruitmentDTO(recruitment));
         }
 
         return recruitmentDTOS;
