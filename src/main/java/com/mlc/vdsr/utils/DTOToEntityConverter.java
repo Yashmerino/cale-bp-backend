@@ -27,6 +27,8 @@ public class DTOToEntityConverter {
         user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());
         user.setUsername(userDTO.getUsername());
+        user.setDateOfBirth(userDTO.getDateOfBirth());
+        user.setProjects(user.getProjects());
 
         return user;
     }

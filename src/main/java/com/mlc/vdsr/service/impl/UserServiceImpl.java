@@ -1,8 +1,12 @@
 package com.mlc.vdsr.service.impl;
 
+import com.mlc.vdsr.dto.ProjectDTO;
 import com.mlc.vdsr.dto.UserDTO;
+import com.mlc.vdsr.entity.Project;
 import com.mlc.vdsr.entity.User;
+import com.mlc.vdsr.exception.ProjectNotFoundException;
 import com.mlc.vdsr.exception.UserNotFoundException;
+import com.mlc.vdsr.repository.ProjectRepository;
 import com.mlc.vdsr.repository.UserRepository;
 import com.mlc.vdsr.service.UserService;
 import com.mlc.vdsr.utils.EntityToDTOConverter;
@@ -23,12 +27,19 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     /**
+     * Projects repository.
+     */
+    private final ProjectRepository projectRepository;
+
+    /**
      * Constructor.
      *
      * @param userRepository is the users repository.
+     * @param projectRepository is the projects repository.
      */
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, ProjectRepository projectRepository) {
         this.userRepository = userRepository;
+        this.projectRepository = projectRepository;
     }
 
     /**
@@ -78,6 +89,7 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());
+        user.setDateOfBirth(userDTO.getDateOfBirth());
 
         return EntityToDTOConverter.convertToUserDTO(userRepository.save(user));
     }
@@ -93,5 +105,55 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(UserNotFoundException::new);
 
         userRepository.delete(user);
+    }
+
+    /**
+     * Assigns a project to the user.
+     *
+     * @param id is the user's id.
+     * @param projectId is the project's id.
+     */
+    @Override
+    public void assignProject(Long id, Long projectId) {
+        User user = this.userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        Project project = this.projectRepository.findById(projectId).orElseThrow(ProjectNotFoundException::new);
+
+        user.getProjects().add(project);
+
+        this.userRepository.save(user);
+    }
+
+    /**
+     * Unassigns a project to the user.
+     *
+     * @param id is the user's id.
+     * @param projectId is the project's id.
+     */
+    @Override
+    public void unassignProject(Long id, Long projectId) {
+        User user = this.userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        Project project = this.projectRepository.findById(projectId).orElseThrow(ProjectNotFoundException::new);
+
+        user.getProjects().remove(project);
+
+        this.userRepository.save(user);
+    }
+
+    /**
+     * Returns all user's projects.
+     *
+     * @param id is the user's id.
+     */
+    @Override
+    public List<ProjectDTO> getUserProjects(Long id) {
+        User user = this.userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        List<Project> projects = user.getProjects();
+
+        List<ProjectDTO> projectDTOs = new ArrayList<>();
+        for (Project project : projects) {
+            projectDTOs.add(EntityToDTOConverter.convertToProjectDTO(project));
+        }
+
+        return projectDTOs;
     }
 }

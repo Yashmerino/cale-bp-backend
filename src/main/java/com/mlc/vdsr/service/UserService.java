@@ -1,5 +1,6 @@
 package com.mlc.vdsr.service;
 
+import com.mlc.vdsr.dto.ProjectDTO;
 import com.mlc.vdsr.dto.UserDTO;
 
 import java.util.List;
@@ -40,4 +41,27 @@ public interface UserService {
      * @param id is the user's id.
      */
     void deleteUser(Long id);
+
+    /**
+     * Assigns a project to the user.
+     *
+     * @param id is the user's id.
+     * @param projectId is the project's id.
+     */
+    void assignProject(Long id, Long projectId);
+
+    /**
+     * Unassigns a project to the user.
+     *
+     * @param id is the user's id.
+     * @param projectId is the project's id.
+     */
+    void unassignProject(Long id, Long projectId);
+
+    /**
+     * Returns all user's projects.
+     *
+     * @param id is the user's id.
+     */
+    List<ProjectDTO> getUserProjects(Long id);
 }

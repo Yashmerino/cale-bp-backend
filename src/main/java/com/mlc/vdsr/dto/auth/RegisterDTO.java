@@ -1,12 +1,10 @@
 package com.mlc.vdsr.dto.auth;
 
 import com.mlc.vdsr.utils.RoleEnum;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -61,4 +59,11 @@ public class RegisterDTO {
     @NotBlank(message = "password_is_required")
     @Size(min = 6, max = 255, message = "password_length_invalid")
     private String password;
+
+    /**
+     * User's date of birth.
+     */
+    @NotNull(message = "dob_is_required")
+    @PastOrPresent(message = "dob_must_be_in_the_past_or_present")
+    private Date dateOfBirth;
 }

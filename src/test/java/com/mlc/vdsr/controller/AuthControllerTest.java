@@ -19,6 +19,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -69,6 +70,7 @@ class AuthControllerTest {
         registerDTO.setUsername("test123");
         registerDTO.setPassword("test123");
         registerDTO.setEmail("test@test.test");
+        registerDTO.setDateOfBirth(new Date());
 
         loginDTO = new LoginDTO();
         loginDTO.setUsername("test123");

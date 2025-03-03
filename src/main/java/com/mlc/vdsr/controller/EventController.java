@@ -120,7 +120,7 @@ public class EventController {
             @ApiResponse(responseCode = SwaggerHttpStatus.INTERNAL_SERVER_ERROR, description = SwaggerMessages.INTERNAL_SERVER_ERROR,
                     content = @Content)})
     @PostMapping
-    public ResponseEntity<SuccessDTO> createEvent(@Parameter(description = "JSON Object for user's credentials.") @Valid @RequestBody EventDTO eventDTO) {
+    public ResponseEntity<SuccessDTO> createEvent(@Parameter(description = "JSON Object for event's details.") @Valid @RequestBody EventDTO eventDTO) {
         this.eventService.createEvent(eventDTO);
 
         return new ResponseEntity<>(SuccessDTO.returnNewDTO(HttpStatus.OK.value(), "event_created_successfully"), HttpStatus.OK);

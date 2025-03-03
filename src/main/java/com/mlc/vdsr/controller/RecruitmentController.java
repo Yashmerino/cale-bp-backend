@@ -116,7 +116,7 @@ public class RecruitmentController {
             @ApiResponse(responseCode = SwaggerHttpStatus.INTERNAL_SERVER_ERROR, description = SwaggerMessages.INTERNAL_SERVER_ERROR,
                     content = @Content)})
     @PostMapping
-    public ResponseEntity<SuccessDTO> createRecruitment(@Parameter(description = "JSON Object for user's credentials.") @Valid @RequestBody RecruitmentDTO recruitmentDTO) {
+    public ResponseEntity<SuccessDTO> createRecruitment(@Parameter(description = "JSON Object for recruitment's details.") @Valid @RequestBody RecruitmentDTO recruitmentDTO) {
         this.recruitmentService.createRecruitment(recruitmentDTO);
 
         return new ResponseEntity<>(SuccessDTO.returnNewDTO(HttpStatus.OK.value(), "recruitment_created_successfully"), HttpStatus.OK);

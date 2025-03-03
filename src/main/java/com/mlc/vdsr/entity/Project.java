@@ -5,11 +5,15 @@ import com.mlc.vdsr.utils.Availability;
 import com.mlc.vdsr.utils.Department;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Project entity class.
@@ -31,4 +35,10 @@ public class Project extends BaseEntity {
     @Size(max = 64, message = "title_length_invalid")
     @Size(max = 64, min = 1, message = "title_length_invalid")
     private String title;
+
+    /**
+     * Project's assigned members.
+     */
+    @ManyToMany(mappedBy = "projects")
+    private List<User> members = new ArrayList<>();
 }

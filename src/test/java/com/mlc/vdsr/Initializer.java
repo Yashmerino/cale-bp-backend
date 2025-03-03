@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -78,6 +79,7 @@ public class Initializer implements CommandLineRunner {
                     user.setLastName("owner");
                     user.setEmail("owner@test.com");
                     user.setRoles(new HashSet<>(List.of(roleRepository.findByName(RoleEnum.OWNER.name()).get())));
+                    user.setDateOfBirth(new Date());
                     return userRepository.save(user);
                 });
 
@@ -91,6 +93,7 @@ public class Initializer implements CommandLineRunner {
                     user.setLastName("bozieac");
                     user.setEmail("test@test.com");
                     user.setRoles(new HashSet<>(List.of(roleRepository.findByName(RoleEnum.OWNER.name()).get())));
+                    user.setDateOfBirth(new Date());
                     return userRepository.save(user);
                 });
 

@@ -14,6 +14,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD;
@@ -50,7 +52,8 @@ public class UserControllerTest {
     void getAllUsersTest() throws Exception {
         MvcResult result = mvc.perform(get("/api/user")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"firstName\":\"owner\",\"lastName\":\"owner\",\"username\":\"owner\",\"email\":\"owner@test.com\"},{\"id\":2,\"firstName\":\"artiom\",\"lastName\":\"bozieac\",\"username\":\"artiombozieac\",\"email\":\"test@test.com\"}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"firstName\":\"owner\",\"lastName\":\"owner\",\"username\":\"owner\",\"email\":\"owner@test.com\",\"dateOfBirth\""));
+        assertTrue(result.getResponse().getContentAsString().contains("{\"id\":2,\"firstName\":\"artiom\",\"lastName\":\"bozieac\",\"username\":\"artiombozieac\",\"email\":\"test@test.com\",\"dateOfBirth\":\""));
     }
 
     /**
@@ -63,7 +66,7 @@ public class UserControllerTest {
     void getUserById() throws Exception {
         MvcResult result = mvc.perform(get("/api/user/1")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("{\"id\":1,\"firstName\":\"owner\",\"lastName\":\"owner\",\"username\":\"owner\",\"email\":\"owner@test.com\"}"));
+        assertTrue(result.getResponse().getContentAsString().contains("{\"id\":1,\"firstName\":\"owner\",\"lastName\":\"owner\",\"username\":\"owner\",\"email\":\"owner@test.com\",\"dateOfBirth\":\""));
     }
 
     /**
@@ -87,12 +90,12 @@ public class UserControllerTest {
     @Test
     @WithMockUser(username = "owner", authorities = {"OWNER"})
     void updateUserTest() throws Exception {
-        UserDTO userDTO = new UserDTO(1L, "razvan", "smeu", "username2", "test2@mail.com");
+        UserDTO userDTO = new UserDTO(1L, "razvan", "smeu", "username2", "test2@mail.com", new Date());
 
         MvcResult result = mvc.perform(put("/api/user/1").content(objectMapper.writeValueAsString(userDTO)).contentType(
                 APPLICATION_JSON)).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("{\"id\":1,\"firstName\":\"razvan\",\"lastName\":\"smeu\",\"username\":\"owner\",\"email\":\"test2@mail.com\"}"));
+        assertTrue(result.getResponse().getContentAsString().contains("{\"id\":1,\"firstName\":\"razvan\",\"lastName\":\"smeu\",\"username\":\"owner\",\"email\":\"test2@mail.com\",\"dateOfBirth\":\""));
     }
 
     /**
@@ -103,7 +106,7 @@ public class UserControllerTest {
     @Test
     @WithMockUser(username = "owner", authorities = {"OWNER"})
     void updateNonexistingUserTest() throws Exception {
-        UserDTO userDTO = new UserDTO(1L, "razvan", "smeu", "username", "test@mail.com");
+        UserDTO userDTO = new UserDTO(1L, "razvan", "smeu", "username", "test@mail.com", new Date());
 
         MvcResult result = mvc.perform(put("/api/user/9999").content(objectMapper.writeValueAsString(userDTO)).contentType(
                 APPLICATION_JSON)).andExpect(status().isNotFound()).andReturn();

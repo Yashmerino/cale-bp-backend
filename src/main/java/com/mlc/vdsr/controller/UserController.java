@@ -1,5 +1,6 @@
 package com.mlc.vdsr.controller;
 
+import com.mlc.vdsr.dto.ProjectDTO;
 import com.mlc.vdsr.dto.SuccessDTO;
 import com.mlc.vdsr.dto.UserDTO;
 import com.mlc.vdsr.service.UserService;
@@ -147,5 +148,83 @@ public class UserController {
         this.userService.deleteUser(id);
 
         return new ResponseEntity<>(SuccessDTO.returnNewDTO(HttpStatus.OK.value(), "user_deleted_successfully"), HttpStatus.OK);
+    }
+
+    /**
+     * Assigns a project to the user.
+     *
+     * @param id is the user's id.
+     * @param projectId is the project's id.
+     *
+     * @return SuccessDTO.
+     */
+    @Operation(summary = "Assigns a project to the user.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = SwaggerHttpStatus.OK, description = SwaggerMessages.SUCCESS,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.FORBIDDEN, description = SwaggerMessages.FORBIDDEN,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.UNAUTHORIZED, description = SwaggerMessages.UNAUTHORIZED,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.BAD_REQUEST, description = SwaggerMessages.BAD_REQUEST,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.INTERNAL_SERVER_ERROR, description = SwaggerMessages.INTERNAL_SERVER_ERROR,
+                    content = @Content)})
+    @PutMapping("/{id}/assign")
+    public ResponseEntity<SuccessDTO> assignProject(@PathVariable(value = "id") Long id, @RequestParam(value = "projectId") Long projectId) {
+        this.userService.assignProject(id, projectId);
+
+        return new ResponseEntity<>(SuccessDTO.returnNewDTO(HttpStatus.OK.value(), "project_assigned_successfully"), HttpStatus.OK);
+    }
+
+    /**
+     * Unassigns a project to the user.
+     *
+     * @param id is the user's id.
+     * @param projectId is the project's id.
+     *
+     * @return SuccessDTO.
+     */
+    @Operation(summary = "Unassigns a project to the user.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = SwaggerHttpStatus.OK, description = SwaggerMessages.SUCCESS,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.FORBIDDEN, description = SwaggerMessages.FORBIDDEN,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.UNAUTHORIZED, description = SwaggerMessages.UNAUTHORIZED,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.BAD_REQUEST, description = SwaggerMessages.BAD_REQUEST,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.INTERNAL_SERVER_ERROR, description = SwaggerMessages.INTERNAL_SERVER_ERROR,
+                    content = @Content)})
+    @PutMapping("/{id}/unassign")
+    public ResponseEntity<SuccessDTO> unassignProject(@PathVariable(value = "id") Long id, @RequestParam(value = "projectId") Long projectId) {
+        this.userService.unassignProject(id, projectId);
+
+        return new ResponseEntity<>(SuccessDTO.returnNewDTO(HttpStatus.OK.value(), "project_unassigned_successfully"), HttpStatus.OK);
+    }
+
+    /**
+     * Gets all user's projects.
+     *
+     * @param id is the user's id.
+     *
+     * @return List of ProjectDTOs.
+     */
+    @Operation(summary = "Gets all user's projects.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = SwaggerHttpStatus.OK, description = SwaggerMessages.SUCCESS,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.FORBIDDEN, description = SwaggerMessages.FORBIDDEN,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.UNAUTHORIZED, description = SwaggerMessages.UNAUTHORIZED,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.BAD_REQUEST, description = SwaggerMessages.BAD_REQUEST,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.INTERNAL_SERVER_ERROR, description = SwaggerMessages.INTERNAL_SERVER_ERROR,
+                    content = @Content)})
+    @GetMapping("/{id}/projects")
+    public List<ProjectDTO> getUserProjects(@PathVariable(value = "id") Long id) {
+        return this.userService.getUserProjects(id);
     }
 }

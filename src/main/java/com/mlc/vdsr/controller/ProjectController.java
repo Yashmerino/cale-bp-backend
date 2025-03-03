@@ -117,7 +117,7 @@ public class ProjectController {
             @ApiResponse(responseCode = SwaggerHttpStatus.INTERNAL_SERVER_ERROR, description = SwaggerMessages.INTERNAL_SERVER_ERROR,
                     content = @Content)})
     @PostMapping
-    public ResponseEntity<SuccessDTO> createProject(@Parameter(description = "JSON Object for user's credentials.") @Valid @RequestBody ProjectDTO projectDTO) {
+    public ResponseEntity<SuccessDTO> createProject(@Parameter(description = "JSON Object for project's details.") @Valid @RequestBody ProjectDTO projectDTO) {
         this.projectService.createProject(projectDTO);
 
         return new ResponseEntity<>(SuccessDTO.returnNewDTO(HttpStatus.OK.value(), "project_created_successfully"), HttpStatus.OK);

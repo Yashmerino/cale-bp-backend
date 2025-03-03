@@ -1,13 +1,18 @@
 package com.mlc.vdsr.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import com.mlc.vdsr.entity.Project;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * User DTO class.
@@ -57,4 +62,11 @@ public class UserDTO {
     @Size(min = 4, message = "email_too_short")
     @Size(max = 255, message = "email_too_long")
     private String email;
+
+    /**
+     * User's date of birth.
+     */
+    @NotNull(message = "dob_is_required")
+    @PastOrPresent(message = "dob_must_be_in_the_past_or_present")
+    private Date dateOfBirth;
 }
