@@ -1,7 +1,13 @@
 package com.mlc.vdsr.utils;
 
-import com.mlc.vdsr.dto.*;
-import com.mlc.vdsr.entity.*;
+import com.mlc.vdsr.dto.EventDTO;
+import com.mlc.vdsr.dto.ProjectDTO;
+import com.mlc.vdsr.dto.RecruitmentDTO;
+import com.mlc.vdsr.dto.UserDTO;
+import com.mlc.vdsr.entity.Event;
+import com.mlc.vdsr.entity.Project;
+import com.mlc.vdsr.entity.Recruitment;
+import com.mlc.vdsr.entity.User;
 
 /**
  * Util class that converts entities to DTOs.
@@ -74,22 +80,5 @@ public class EntityToDTOConverter {
         projectDTO.setTitle(project.getTitle());
 
         return projectDTO;
-    }
-
-    /**
-     * Converts Member entity to Member DTO.
-     *
-     * @param member is the Member's entity.
-     *
-     * @return Member DTO.
-     */
-    public static MemberDTO convertToMemberDTO(Member member) {
-        MemberDTO memberDTO = new MemberDTO();
-        memberDTO.setFirstName(member.getFirstName());
-        memberDTO.setLastName(member.getLastName());
-        memberDTO.setDateOfBirth(member.getDateOfBirth());
-        memberDTO.setProjects(member.getProjects());
-
-        return memberDTO;
     }
 }
