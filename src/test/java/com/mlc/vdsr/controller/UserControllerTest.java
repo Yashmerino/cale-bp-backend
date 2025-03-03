@@ -76,7 +76,7 @@ public class UserControllerTest {
      */
     @Test
     @WithMockUser(username = "owner", authorities = {"OWNER"})
-    void getUserByIdNonexisting() throws Exception {
+    void getUserByNonExistingId() throws Exception {
         MvcResult result = mvc.perform(get("/api/user/99999")).andExpect(status().isNotFound()).andReturn();
 
         assertTrue(result.getResponse().getContentAsString().contains("\"status\":404,\"error\":\"user_not_found\""));
@@ -125,6 +125,8 @@ public class UserControllerTest {
         MvcResult result = mvc.perform(delete("/api/user/1")).andExpect(status().isOk()).andReturn();
 
         assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"user_deleted_successfully\"}"));
+
+        mvc.perform(get("/api/user/1")).andExpect(status().isNotFound()).andReturn();
     }
 
     /**
@@ -138,5 +140,106 @@ public class UserControllerTest {
         MvcResult result = mvc.perform(delete("/api/user/99")).andExpect(status().isNotFound()).andReturn();
 
         assertTrue(result.getResponse().getContentAsString().contains("\"status\":404,\"error\":\"user_not_found\""));
+    }
+
+    /**
+     * Tests assign project to user.
+     *
+     * @throws Exception if something goes wrong.
+     */
+    @Test
+    @WithMockUser(username = "owner", authorities = {"OWNER"})
+    void assignProjectTest() throws Exception {
+        MvcResult result = mvc.perform(put("/api/user/1/assign?projectId=1")).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"project_assigned_successfully\"}"));
+
+        result = mvc.perform(get("/api/user/1/projects")).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Project\"}]"));
+    }
+
+    /**
+     * Tests unassign project to user.
+     *
+     * @throws Exception if something goes wrong.
+     */
+    @Test
+    @WithMockUser(username = "owner", authorities = {"OWNER"})
+    void unassignProjectTest() throws Exception {
+        MvcResult result = mvc.perform(put("/api/user/1/unassign?projectId=1")).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"project_unassigned_successfully\"}"));
+
+        result = mvc.perform(get("/api/user/1/projects")).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("[]"));
+    }
+
+    /**
+     * Tests get user's projects.
+     *
+     * @throws Exception if something goes wrong.
+     */
+    @Test
+    @WithMockUser(username = "owner", authorities = {"OWNER"})
+    void getUserProjectsTest() throws Exception {
+        mvc.perform(put("/api/user/1/assign?projectId=1")).andExpect(status().isOk()).andReturn();
+
+        MvcResult result = mvc.perform(get("/api/user/1/projects")).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Project\"}]"));
+    }
+
+    /**
+     * Tests assign non-existing project to user.
+     *
+     * @throws Exception if something goes wrong.
+     */
+    @Test
+    @WithMockUser(username = "owner", authorities = {"OWNER"})
+    void assignNonExistingProjectTest() throws Exception {
+        MvcResult result = mvc.perform(put("/api/user/1/assign?projectId=999")).andExpect(status().isNotFound()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains(",\"status\":404,\"error\":\"project_not_found\"}"));
+    }
+
+    /**
+     * Tests unassign non-existing project to user.
+     *
+     * @throws Exception if something goes wrong.
+     */
+    @Test
+    @WithMockUser(username = "owner", authorities = {"OWNER"})
+    void unassignNonExistingProjectTest() throws Exception {
+        MvcResult result = mvc.perform(put("/api/user/1/unassign?projectId=999")).andExpect(status().isNotFound()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains(",\"status\":404,\"error\":\"project_not_found\"}"));
+    }
+
+    /**
+     * Tests assign project to non-existing user.
+     *
+     * @throws Exception if something goes wrong.
+     */
+    @Test
+    @WithMockUser(username = "owner", authorities = {"OWNER"})
+    void assignProjectToNonExistingUser() throws Exception {
+        MvcResult result = mvc.perform(put("/api/user/999/assign?projectId=1")).andExpect(status().isNotFound()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains(",\"status\":404,\"error\":\"user_not_found\"}"));
+    }
+
+    /**
+     * Tests unassign project to non-existing user.
+     *
+     * @throws Exception if something goes wrong.
+     */
+    @Test
+    @WithMockUser(username = "owner", authorities = {"OWNER"})
+    void unassignProjectToNonExistingUser() throws Exception {
+        MvcResult result = mvc.perform(put("/api/user/999/unassign?projectId=1")).andExpect(status().isNotFound()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains(",\"status\":404,\"error\":\"user_not_found\"}"));
     }
 }
