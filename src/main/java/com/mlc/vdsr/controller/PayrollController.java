@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Payrolls related endpoints.
  */
-@Tag(name = "5. Project", description = "These endpoints are used to perform operations on payrolls.")
+@Tag(name = "5. Payroll", description = "These endpoints are used to perform operations on payrolls.")
 @SecurityRequirement(name = SwaggerConfig.SECURITY_SCHEME_NAME)
 @RestController
 @Validated

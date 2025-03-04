@@ -2,6 +2,7 @@ package com.mlc.vdsr;
 
 import com.mlc.vdsr.dto.RecruitmentDTO;
 import com.mlc.vdsr.entity.*;
+import com.mlc.vdsr.exception.UserNotFoundException;
 import com.mlc.vdsr.repository.*;
 import com.mlc.vdsr.utils.ApplicationProperties;
 import com.mlc.vdsr.utils.Availability;
@@ -42,6 +43,7 @@ public class Initializer implements CommandLineRunner {
     private final EventRepository eventRepository;
     private final RecruitmentRepository recruitmentRepository;
     private final ProjectRepository projectRepository;
+    private final PayrollRepository payrollRepository;
 
     /**
      * Constructor.
@@ -50,13 +52,14 @@ public class Initializer implements CommandLineRunner {
      * @param userRepository is the users repository.
      * @param roleRepository is the roles repository;
      */
-    public Initializer(PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository, EventRepository eventRepository, RecruitmentRepository recruitmentRepository, ProjectRepository projectRepository) {
+    public Initializer(PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository, EventRepository eventRepository, RecruitmentRepository recruitmentRepository, ProjectRepository projectRepository, PayrollRepository payrollRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.eventRepository = eventRepository;
         this.recruitmentRepository = recruitmentRepository;
         this.projectRepository = projectRepository;
+        this.payrollRepository = payrollRepository;
     }
 
     @Override
@@ -113,5 +116,11 @@ public class Initializer implements CommandLineRunner {
         Project project = new Project();
         project.setTitle("Project");
         projectRepository.save(project);
+
+        Payroll payroll = new Payroll();
+        payroll.setUser(this.userRepository.findByUsername("artiombozieac").orElseThrow(UserNotFoundException::new));
+        payroll.setSalary(100.0);
+        payroll.setDate(Instant.ofEpochSecond(1741102389));
+        payrollRepository.save(payroll);
     }
 }
