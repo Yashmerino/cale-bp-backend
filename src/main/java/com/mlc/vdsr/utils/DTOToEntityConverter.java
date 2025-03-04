@@ -1,13 +1,7 @@
 package com.mlc.vdsr.utils;
 
-import com.mlc.vdsr.dto.EventDTO;
-import com.mlc.vdsr.dto.ProjectDTO;
-import com.mlc.vdsr.dto.RecruitmentDTO;
-import com.mlc.vdsr.dto.UserDTO;
-import com.mlc.vdsr.entity.Event;
-import com.mlc.vdsr.entity.Project;
-import com.mlc.vdsr.entity.Recruitment;
-import com.mlc.vdsr.entity.User;
+import com.mlc.vdsr.dto.*;
+import com.mlc.vdsr.entity.*;
 
 /**
  * Util class to convert DTOs to entities.
@@ -79,5 +73,22 @@ public class DTOToEntityConverter {
         project.setTitle(projectDTO.getTitle());
 
         return project;
+    }
+
+    /**
+     * Converts Payroll DTO to Payroll Entity.
+     *
+     * @param payrollDTO is the Payroll's DTO.
+     *
+     * @return Payroll entity.
+     */
+    public static Payroll convertToPayrollEntity(PayrollDTO payrollDTO, User user) {
+        Payroll payroll = new Payroll();
+        payroll.setId(payrollDTO.getId());
+        payroll.setUser(user);
+        payroll.setDate(payrollDTO.getDate());
+        payroll.setSalary(payrollDTO.getSalary());
+
+        return payroll;
     }
 }

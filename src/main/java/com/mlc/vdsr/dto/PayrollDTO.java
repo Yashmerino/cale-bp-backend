@@ -1,7 +1,7 @@
 package com.mlc.vdsr.dto;
 
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.Email;
+import com.mlc.vdsr.entity.User;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -9,41 +9,41 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.Instant;
 
 /**
- * Event DTO class.
+ * Payroll DTO class.
  */
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EventDTO {
+public class PayrollDTO {
 
     /**
-     * Event's ID.
+     * Payroll's ID.
      */
     private Long id;
 
     /**
-     * Event's title
+     * Payroll's salary.
      */
-    @NotNull(message = "title_is_required")
-    @NotBlank(message = "title_is_required")
-    @Size(max = 64, min = 1, message = "title_length_invalid")
-    private String title;
+    @NotNull(message = "salary_is_required")
+    @Min(value = 1, message = "salary_amount_invalid")
+    private Double salary;
 
     /**
-     * Event's date.
+     * Payroll's date.
      */
     @NotNull(message = "date_is_required")
     private Instant date;
 
     /**
-     * Is event important or no.
+     * Payroll's user.
      */
-    @Column(nullable = false)
-    private Boolean isImportant = false;
+    @NotNull(message = "user_is_required")
+    private Long userId;
 }
+
+
