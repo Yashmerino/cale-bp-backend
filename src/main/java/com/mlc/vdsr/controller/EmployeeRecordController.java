@@ -1,10 +1,8 @@
 package com.mlc.vdsr.controller;
 
 import com.mlc.vdsr.dto.EmployeeRecordDTO;
-import com.mlc.vdsr.dto.EventDTO;
 import com.mlc.vdsr.dto.SuccessDTO;
 import com.mlc.vdsr.service.EmployeeRecordService;
-import com.mlc.vdsr.service.EventService;
 import com.mlc.vdsr.swagger.SwaggerConfig;
 import com.mlc.vdsr.swagger.SwaggerHttpStatus;
 import com.mlc.vdsr.swagger.SwaggerMessages;

@@ -100,6 +100,10 @@ public class RecruitmentControllerTest {
         MvcResult result = mvc.perform(delete("/api/recruitment/1")).andExpect(status().isOk()).andReturn();
 
         assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"recruitment_deleted_successfully\"}"));
+
+        result = mvc.perform(get("/api/recruitment")).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("[]"));
     }
 
     /**
@@ -137,6 +141,10 @@ public class RecruitmentControllerTest {
         MvcResult result = mvc.perform(delete("/api/recruitment/1")).andExpect(status().isOk()).andReturn();
 
         assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"recruitment_deleted_successfully\"}"));
+
+        result = mvc.perform(get("/api/recruitment")).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("[]"));
     }
 
     /**
@@ -168,6 +176,10 @@ public class RecruitmentControllerTest {
                 APPLICATION_JSON).content(objectMapper.writeValueAsString(recruitmentDTO))).andExpect(status().isOk()).andReturn();
 
         assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"recruitment_created_successfully\"}"));
+
+        result = mvc.perform(get("/api/recruitment")).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Recruitment\",\"department\":\"IT\",\"availability\":\"IMMEDIATE\",\"open\":true}]"));
     }
 
     /**
@@ -182,6 +194,10 @@ public class RecruitmentControllerTest {
                 APPLICATION_JSON)).andExpect(status().isOk()).andReturn();
 
         assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"recruitment_closed_successfully\"}"));
+
+        result = mvc.perform(get("/api/recruitment")).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Recruitment\",\"department\":\"IT\",\"availability\":\"IMMEDIATE\",\"open\":false}]"));
     }
 
     /**
@@ -196,5 +212,9 @@ public class RecruitmentControllerTest {
                 APPLICATION_JSON)).andExpect(status().isOk()).andReturn();
 
         assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"recruitment_opened_successfully\"}"));
+
+        result = mvc.perform(get("/api/recruitment")).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Recruitment\",\"department\":\"IT\",\"availability\":\"IMMEDIATE\",\"open\":true}]"));
     }
 }

@@ -33,7 +33,7 @@ public class EmployeeRecord extends BaseEntity {
      */
     @NotNull(message = "position_is_required")
     @NotBlank(message = "position_is_required")
-    @Size(max = 64, min = 1, message = "title_length_invalid")
+    @Size(max = 64, min = 1, message = "position_length_invalid")
     private String position;
 
     /**

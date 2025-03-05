@@ -91,6 +91,10 @@ public class ProjectControllerTest {
         MvcResult result = mvc.perform(delete("/api/project/1")).andExpect(status().isOk()).andReturn();
 
         assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"project_deleted_successfully\"}"));
+
+        result = mvc.perform(get("/api/project")).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("[]"));
     }
 
     /**
@@ -146,5 +150,9 @@ public class ProjectControllerTest {
                 APPLICATION_JSON).content(objectMapper.writeValueAsString(projectDTO))).andExpect(status().isOk()).andReturn();
 
         assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"project_created_successfully\"}"));
+
+        result = mvc.perform(get("/api/project")).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Project\"},{\"id\":2,\"title\":\"Project\"}]"));
     }
 }

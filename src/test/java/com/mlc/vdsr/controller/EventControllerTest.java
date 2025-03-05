@@ -95,6 +95,10 @@ public class EventControllerTest {
         MvcResult result = mvc.perform(delete("/api/event/1")).andExpect(status().isOk()).andReturn();
 
         assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"event_deleted_successfully\"}"));
+
+        result = mvc.perform(get("/api/event")).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("[]"));
     }
 
     /**
@@ -132,6 +136,10 @@ public class EventControllerTest {
         MvcResult result = mvc.perform(delete("/api/event/1")).andExpect(status().isOk()).andReturn();
 
         assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"event_deleted_successfully\"}"));
+
+        result = mvc.perform(get("/api/event")).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("[]"));
     }
 
     /**
@@ -163,5 +171,12 @@ public class EventControllerTest {
                 APPLICATION_JSON).content(objectMapper.writeValueAsString(eventDTO))).andExpect(status().isOk()).andReturn();
 
         assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"event_created_successfully\"}"));
+
+        result = mvc.perform(get("/api/event")).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Event\",\"date\":\""));
+        assertTrue(result.getResponse().getContentAsString().contains(",{\"id\":2,\"title\":\"Event\",\"date\":\""));
+        assertTrue(result.getResponse().getContentAsString().contains("\"isImportant\":false"));
+        assertTrue(result.getResponse().getContentAsString().contains("\"isImportant\":true"));
     }
 }

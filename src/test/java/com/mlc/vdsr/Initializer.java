@@ -44,6 +44,7 @@ public class Initializer implements CommandLineRunner {
     private final RecruitmentRepository recruitmentRepository;
     private final ProjectRepository projectRepository;
     private final PayrollRepository payrollRepository;
+    private final EmployeeRecordRepository employeeRecordRepository;
 
     /**
      * Constructor.
@@ -52,7 +53,7 @@ public class Initializer implements CommandLineRunner {
      * @param userRepository is the users repository.
      * @param roleRepository is the roles repository;
      */
-    public Initializer(PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository, EventRepository eventRepository, RecruitmentRepository recruitmentRepository, ProjectRepository projectRepository, PayrollRepository payrollRepository) {
+    public Initializer(PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository, EventRepository eventRepository, RecruitmentRepository recruitmentRepository, ProjectRepository projectRepository, PayrollRepository payrollRepository, EmployeeRecordRepository employeeRecordRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
@@ -60,6 +61,7 @@ public class Initializer implements CommandLineRunner {
         this.recruitmentRepository = recruitmentRepository;
         this.projectRepository = projectRepository;
         this.payrollRepository = payrollRepository;
+        this.employeeRecordRepository = employeeRecordRepository;
     }
 
     @Override
@@ -122,5 +124,11 @@ public class Initializer implements CommandLineRunner {
         payroll.setSalary(100.0);
         payroll.setDate(Instant.ofEpochSecond(1741102389));
         payrollRepository.save(payroll);
+
+        EmployeeRecord employeeRecord = new EmployeeRecord();
+        employeeRecord.setUser(this.userRepository.findByUsername("artiombozieac").orElseThrow(UserNotFoundException::new));
+        employeeRecord.setDepartment(Department.IT);
+        employeeRecord.setPosition("Developer");
+        employeeRecordRepository.save(employeeRecord);
     }
 }

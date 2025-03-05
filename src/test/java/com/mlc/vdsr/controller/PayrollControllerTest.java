@@ -95,6 +95,10 @@ public class PayrollControllerTest {
         MvcResult result = mvc.perform(delete("/api/payroll/1")).andExpect(status().isOk()).andReturn();
 
         assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"payroll_deleted_successfully\"}"));
+
+        result = mvc.perform(get("/api/payroll")).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("[]"));
     }
 
     /**
