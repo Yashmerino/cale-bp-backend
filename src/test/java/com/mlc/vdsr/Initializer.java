@@ -1,10 +1,8 @@
 package com.mlc.vdsr;
 
-import com.mlc.vdsr.dto.RecruitmentDTO;
 import com.mlc.vdsr.entity.*;
 import com.mlc.vdsr.exception.UserNotFoundException;
 import com.mlc.vdsr.repository.*;
-import com.mlc.vdsr.utils.ApplicationProperties;
 import com.mlc.vdsr.utils.Availability;
 import com.mlc.vdsr.utils.Department;
 import com.mlc.vdsr.utils.RoleEnum;
@@ -45,6 +43,7 @@ public class Initializer implements CommandLineRunner {
     private final ProjectRepository projectRepository;
     private final PayrollRepository payrollRepository;
     private final EmployeeRecordRepository employeeRecordRepository;
+    private final InvoiceRepository invoiceRepository;
 
     /**
      * Constructor.
@@ -53,7 +52,7 @@ public class Initializer implements CommandLineRunner {
      * @param userRepository is the users repository.
      * @param roleRepository is the roles repository;
      */
-    public Initializer(PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository, EventRepository eventRepository, RecruitmentRepository recruitmentRepository, ProjectRepository projectRepository, PayrollRepository payrollRepository, EmployeeRecordRepository employeeRecordRepository) {
+    public Initializer(PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository, EventRepository eventRepository, RecruitmentRepository recruitmentRepository, ProjectRepository projectRepository, PayrollRepository payrollRepository, EmployeeRecordRepository employeeRecordRepository, InvoiceRepository invoiceRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
@@ -62,6 +61,7 @@ public class Initializer implements CommandLineRunner {
         this.projectRepository = projectRepository;
         this.payrollRepository = payrollRepository;
         this.employeeRecordRepository = employeeRecordRepository;
+        this.invoiceRepository = invoiceRepository;
     }
 
     @Override
@@ -130,5 +130,11 @@ public class Initializer implements CommandLineRunner {
         employeeRecord.setDepartment(Department.IT);
         employeeRecord.setPosition("Developer");
         employeeRecordRepository.save(employeeRecord);
+
+        Invoice invoice = new Invoice();
+        invoice.setClient("Client");
+        invoice.setAmount(100.0);
+        invoice.setDueDate(Instant.ofEpochSecond(1741102389));
+        invoiceRepository.save(invoice);
     }
 }

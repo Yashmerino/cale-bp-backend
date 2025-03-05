@@ -179,7 +179,7 @@ public class RecruitmentControllerTest {
 
         result = mvc.perform(get("/api/recruitment")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Recruitment\",\"department\":\"IT\",\"availability\":\"IMMEDIATE\",\"open\":true}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Recruitment\",\"department\":\"IT\",\"availability\":\"IMMEDIATE\",\"open\":true},{\"id\":2,\"title\":\"Recruitment\",\"department\":\"IT\",\"availability\":\"IMMEDIATE\",\"open\":true}]"));
     }
 
     /**
