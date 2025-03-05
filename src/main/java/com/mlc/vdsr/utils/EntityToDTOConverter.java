@@ -120,6 +120,7 @@ public class EntityToDTOConverter {
      */
     public static InvoiceDTO convertToInvoiceDTO(Invoice invoice) {
         InvoiceDTO invoiceDTO = new InvoiceDTO();
+        invoiceDTO.setId(invoice.getId());
         invoiceDTO.setClient(invoice.getClient());
         invoiceDTO.setAmount(invoice.getAmount());
         invoiceDTO.setDueDate(invoice.getDueDate());
