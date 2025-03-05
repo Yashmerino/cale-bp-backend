@@ -110,4 +110,20 @@ public class EntityToDTOConverter {
 
         return employeeRecordDTO;
     }
+
+    /**
+     * Converts Invoice Entity to Invoice DTO.
+     *
+     * @param invoice is the Invoice's entity.
+     *
+     * @return InvoiceDTO.
+     */
+    public static InvoiceDTO convertToInvoiceDTO(Invoice invoice) {
+        InvoiceDTO invoiceDTO = new InvoiceDTO();
+        invoiceDTO.setClient(invoice.getClient());
+        invoiceDTO.setAmount(invoice.getAmount());
+        invoiceDTO.setDueDate(invoice.getDueDate());
+
+        return invoiceDTO;
+    }
 }

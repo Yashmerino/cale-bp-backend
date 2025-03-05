@@ -52,7 +52,6 @@ public class DTOToEntityConverter {
      */
     public static Recruitment convertToRecruitmentEntity(RecruitmentDTO recruitmentDTO) {
         Recruitment recruitment = new Recruitment();
-        recruitment.setId(recruitmentDTO.getId());
         recruitment.setTitle(recruitmentDTO.getTitle());
         recruitment.setDepartment(recruitmentDTO.getDepartment());
         recruitment.setAvailability(recruitmentDTO.getAvailability());
@@ -84,7 +83,6 @@ public class DTOToEntityConverter {
      */
     public static Payroll convertToPayrollEntity(PayrollDTO payrollDTO, User user) {
         Payroll payroll = new Payroll();
-        payroll.setId(payrollDTO.getId());
         payroll.setUser(user);
         payroll.setDate(payrollDTO.getDate());
         payroll.setSalary(payrollDTO.getSalary());
@@ -101,11 +99,26 @@ public class DTOToEntityConverter {
      */
     public static EmployeeRecord convertToEmployeeRecordEntity(EmployeeRecordDTO employeeRecordDTO, User user) {
         EmployeeRecord employeeRecord = new EmployeeRecord();
-        employeeRecord.setId(employeeRecordDTO.getId());
         employeeRecord.setUser(user);
         employeeRecord.setDepartment(employeeRecordDTO.getDepartment());
         employeeRecord.setPosition(employeeRecordDTO.getPosition());
 
         return employeeRecord;
+    }
+
+    /**
+     * Converts Invoice DTO to Invoice Entity.
+     *
+     * @param invoiceDTO is the Invoice's DTO.
+     *
+     * @return Invoice entity.
+     */
+    public static Invoice convertToInvoiceEntity(InvoiceDTO invoiceDTO) {
+        Invoice invoice = new Invoice();
+        invoice.setClient(invoiceDTO.getClient());
+        invoice.setAmount(invoiceDTO.getAmount());
+        invoice.setDueDate(invoiceDTO.getDueDate());
+
+        return invoice;
     }
 }
