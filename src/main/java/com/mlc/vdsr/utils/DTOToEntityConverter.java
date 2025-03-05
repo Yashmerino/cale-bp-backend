@@ -91,4 +91,21 @@ public class DTOToEntityConverter {
 
         return payroll;
     }
+
+    /**
+     * Converts Employee Record DTO to Employee Record Entity.
+     *
+     * @param employeeRecordDTO is the Employee Record's DTO.
+     *
+     * @return Employee Record entity.
+     */
+    public static EmployeeRecord convertToEmployeeRecordEntity(EmployeeRecordDTO employeeRecordDTO, User user) {
+        EmployeeRecord employeeRecord = new EmployeeRecord();
+        employeeRecord.setId(employeeRecordDTO.getId());
+        employeeRecord.setUser(user);
+        employeeRecord.setDepartment(employeeRecordDTO.getDepartment());
+        employeeRecord.setPosition(employeeRecordDTO.getPosition());
+
+        return employeeRecord;
+    }
 }
