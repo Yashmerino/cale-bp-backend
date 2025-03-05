@@ -202,4 +202,21 @@ public class ApiExceptionHandler {
 
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
+
+    /**
+     * Handles the {@link EmployeeRecordNotFoundException}
+     *
+     * @param e is the thrown exception.
+     * @return <code>ResponseEntity</code>
+     */
+    @ExceptionHandler(EmployeeRecordNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ResponseEntity<Object> handleEmployeeRecordNotFoundException(EmployeeRecordNotFoundException e) {
+        ErrorDTO error = new ErrorDTO();
+        error.setTimestamp(LocalDateTime.now());
+        error.setError(e.getMessage());
+        error.setStatus(HttpStatus.NOT_FOUND.value());
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
 }
