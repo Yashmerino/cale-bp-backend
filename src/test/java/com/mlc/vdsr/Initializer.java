@@ -3,10 +3,7 @@ package com.mlc.vdsr;
 import com.mlc.vdsr.entity.*;
 import com.mlc.vdsr.exception.UserNotFoundException;
 import com.mlc.vdsr.repository.*;
-import com.mlc.vdsr.utils.Availability;
-import com.mlc.vdsr.utils.Department;
-import com.mlc.vdsr.utils.InvoiceStatus;
-import com.mlc.vdsr.utils.RoleEnum;
+import com.mlc.vdsr.utils.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -45,6 +42,7 @@ public class Initializer implements CommandLineRunner {
     private final PayrollRepository payrollRepository;
     private final EmployeeRecordRepository employeeRecordRepository;
     private final InvoiceRepository invoiceRepository;
+    private final BudgetRepository budgetRepository;
 
     /**
      * Constructor.
@@ -53,7 +51,7 @@ public class Initializer implements CommandLineRunner {
      * @param userRepository is the users repository.
      * @param roleRepository is the roles repository;
      */
-    public Initializer(PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository, EventRepository eventRepository, RecruitmentRepository recruitmentRepository, ProjectRepository projectRepository, PayrollRepository payrollRepository, EmployeeRecordRepository employeeRecordRepository, InvoiceRepository invoiceRepository) {
+    public Initializer(PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository, EventRepository eventRepository, RecruitmentRepository recruitmentRepository, ProjectRepository projectRepository, PayrollRepository payrollRepository, EmployeeRecordRepository employeeRecordRepository, InvoiceRepository invoiceRepository, BudgetRepository budgetRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
@@ -63,6 +61,7 @@ public class Initializer implements CommandLineRunner {
         this.payrollRepository = payrollRepository;
         this.employeeRecordRepository = employeeRecordRepository;
         this.invoiceRepository = invoiceRepository;
+        this.budgetRepository = budgetRepository;
     }
 
     @Override
@@ -138,5 +137,12 @@ public class Initializer implements CommandLineRunner {
         invoice.setDueDate(Instant.ofEpochSecond(1741102389));
         invoice.setStatus(InvoiceStatus.PAID);
         invoiceRepository.save(invoice);
+
+        Budget budget = new Budget();
+        budget.setStatus(BudgetStatus.PENDING);
+        budget.setAmount(100.0);
+        budget.setName("Budget");
+        budget.setDepartment(Department.IT);
+        budgetRepository.save(budget);
     }
 }
