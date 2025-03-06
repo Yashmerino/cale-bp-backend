@@ -101,6 +101,11 @@ public class SecurityConfig {
     private static final String BUDGET_ALL_ENDPOINTS = "/api/budget/**";
 
     /**
+     * Regex for all the endpoints related to expenses.
+     */
+    private static final String EXPENSE_ALL_ENDPOINTS = "/api/expense/**";
+
+    /**
      * Jwt Auth Entry Point to handle exceptions.
      */
     private final JwtAuthEntryPoint jwtAuthEntryPoint;
@@ -160,6 +165,7 @@ public class SecurityConfig {
                     request.requestMatchers(HttpMethod.GET, EMPLOYEE_RECORD_ALL_ENDPOINTS).hasAnyAuthority(ALL_ROLES);
                     request.requestMatchers(HttpMethod.GET, INVOICE_ALL_ENDPOINTS).hasAnyAuthority(ALL_ROLES);
                     request.requestMatchers(HttpMethod.GET, BUDGET_ALL_ENDPOINTS).hasAnyAuthority(ALL_ROLES);
+                    request.requestMatchers(HttpMethod.GET, EXPENSE_ALL_ENDPOINTS).hasAnyAuthority(ALL_ROLES);
                     request.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll();
                     request.requestMatchers(HttpMethod.POST, "/api/auth/register").hasAnyAuthority(RoleEnum.OWNER.name());
                     request.requestMatchers(HttpMethod.DELETE, USERS_ALL_ENDPOINTS).hasAnyAuthority(RoleEnum.OWNER.name());
@@ -177,6 +183,8 @@ public class SecurityConfig {
                     request.requestMatchers(HttpMethod.DELETE, INVOICE_ALL_ENDPOINTS).hasAnyAuthority(RoleEnum.OWNER.name(), RoleEnum.ACCOUNTING.name(), RoleEnum.ACCOUNTING_LEADER.name());
                     request.requestMatchers(HttpMethod.POST, BUDGET_ALL_ENDPOINTS).hasAnyAuthority(RoleEnum.OWNER.name(), RoleEnum.ACCOUNTING.name(), RoleEnum.ACCOUNTING_LEADER.name());
                     request.requestMatchers(HttpMethod.DELETE, BUDGET_ALL_ENDPOINTS).hasAnyAuthority(RoleEnum.OWNER.name(), RoleEnum.ACCOUNTING.name(), RoleEnum.ACCOUNTING_LEADER.name());
+                    request.requestMatchers(HttpMethod.POST, EXPENSE_ALL_ENDPOINTS).hasAnyAuthority(RoleEnum.OWNER.name(), RoleEnum.ACCOUNTING.name(), RoleEnum.ACCOUNTING_LEADER.name());
+                    request.requestMatchers(HttpMethod.DELETE, EXPENSE_ALL_ENDPOINTS).hasAnyAuthority(RoleEnum.OWNER.name(), RoleEnum.ACCOUNTING.name(), RoleEnum.ACCOUNTING_LEADER.name());
                     request.requestMatchers(SWAGGER_WHITELIST).permitAll();
                     request.requestMatchers(ACTUATOR_WHITELIST).permitAll();
                     request.anyRequest().authenticated();

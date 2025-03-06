@@ -253,4 +253,21 @@ public class ApiExceptionHandler {
 
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
+
+    /**
+     * Handles the {@link ExpenseNotFoundException}
+     *
+     * @param e is the thrown exception.
+     * @return <code>ResponseEntity</code>
+     */
+    @ExceptionHandler(ExpenseNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ResponseEntity<Object> handleExpenseNotFoundException(ExpenseNotFoundException e) {
+        ErrorDTO error = new ErrorDTO();
+        error.setTimestamp(LocalDateTime.now());
+        error.setError(e.getMessage());
+        error.setStatus(HttpStatus.NOT_FOUND.value());
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
 }

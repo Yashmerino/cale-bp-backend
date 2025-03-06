@@ -27,9 +27,9 @@ public class Expense extends BaseEntity {
     /**
      * Expense's description.
      */
-    @NotNull(message = "expense_is_required")
-    @NotBlank(message = "expense_is_required")
-    @Size(max = 128, min = 1, message = "expense_length_invalid")
+    @NotNull(message = "description_is_required")
+    @NotBlank(message = "description_is_required")
+    @Size(max = 128, min = 1, message = "description_length_invalid")
     private String description;
 
     /**
