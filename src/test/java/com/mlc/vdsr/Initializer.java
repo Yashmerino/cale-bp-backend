@@ -43,6 +43,7 @@ public class Initializer implements CommandLineRunner {
     private final EmployeeRecordRepository employeeRecordRepository;
     private final InvoiceRepository invoiceRepository;
     private final BudgetRepository budgetRepository;
+    private final ExpenseRepository expenseRepository;
 
     /**
      * Constructor.
@@ -51,7 +52,7 @@ public class Initializer implements CommandLineRunner {
      * @param userRepository is the users repository.
      * @param roleRepository is the roles repository;
      */
-    public Initializer(PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository, EventRepository eventRepository, RecruitmentRepository recruitmentRepository, ProjectRepository projectRepository, PayrollRepository payrollRepository, EmployeeRecordRepository employeeRecordRepository, InvoiceRepository invoiceRepository, BudgetRepository budgetRepository) {
+    public Initializer(PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository, EventRepository eventRepository, RecruitmentRepository recruitmentRepository, ProjectRepository projectRepository, PayrollRepository payrollRepository, EmployeeRecordRepository employeeRecordRepository, InvoiceRepository invoiceRepository, BudgetRepository budgetRepository, ExpenseRepository expenseRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
@@ -62,6 +63,7 @@ public class Initializer implements CommandLineRunner {
         this.employeeRecordRepository = employeeRecordRepository;
         this.invoiceRepository = invoiceRepository;
         this.budgetRepository = budgetRepository;
+        this.expenseRepository = expenseRepository;
     }
 
     @Override
@@ -144,5 +146,12 @@ public class Initializer implements CommandLineRunner {
         budget.setName("Budget");
         budget.setDepartment(Department.IT);
         budgetRepository.save(budget);
+
+        Expense expense = new Expense();
+        expense.setDescription("description");
+        expense.setAmount(1.0);
+        expense.setExpenseCategory(ExpenseCategory.IT);
+        expense.setDate(Instant.ofEpochSecond(1741102389));
+        expenseRepository.save(expense);
     }
 }

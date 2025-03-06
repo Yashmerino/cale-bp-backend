@@ -149,7 +149,6 @@ public class DTOToEntityConverter {
      */
     public static Expense convertToExpenseEntity(ExpenseDTO expenseDTO) {
         Expense expense = new Expense();
-        expense.setId(expenseDTO.getId());
         expense.setAmount(expenseDTO.getAmount());
         expense.setDate(expenseDTO.getDate());
         expense.setExpenseCategory(expenseDTO.getExpenseCategory());
