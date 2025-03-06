@@ -47,6 +47,6 @@ public class Recruitment extends BaseEntity {
     /**
      * Is recruitment open or no.
      */
-    @Column(nullable = false)
+    @NotNull(message = "open_value_is_required")
     private Boolean open = true;
 }

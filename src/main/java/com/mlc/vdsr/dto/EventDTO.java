@@ -44,6 +44,6 @@ public class EventDTO {
     /**
      * Is event important or no.
      */
-    @Column(nullable = false)
+    @NotNull(message = "importance_is_required")
     private Boolean isImportant = false;
 }

@@ -146,4 +146,22 @@ public class EntityToDTOConverter {
 
         return budgetDTO;
     }
+
+    /**
+     * Converts Expense Entity to Expense DTO.
+     *
+     * @param expense is the Expense's entity.
+     *
+     * @return ExpenseDTO.
+     */
+    public static ExpenseDTO convertToExpenseDTO(Expense expense) {
+        ExpenseDTO expenseDTO = new ExpenseDTO();
+        expenseDTO.setId(expense.getId());
+        expenseDTO.setAmount(expense.getAmount());
+        expenseDTO.setDate(expense.getDate());
+        expenseDTO.setExpenseCategory(expense.getExpenseCategory());
+        expenseDTO.setDescription(expense.getDescription());
+
+        return expenseDTO;
+    }
 }
