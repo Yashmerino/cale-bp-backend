@@ -150,7 +150,7 @@ public class BudgetControllerTest {
      */
     @Test
     @WithMockUser(username = "owner", authorities = {"OWNER"})
-    void createInvalidInvoiceTest() throws Exception {
+    void createInvalidBudgetTest() throws Exception {
         budgetDTO.setName("");
 
         MvcResult result = mvc.perform(post("/api/budget").contentType(
