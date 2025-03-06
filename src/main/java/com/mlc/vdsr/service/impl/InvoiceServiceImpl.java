@@ -66,7 +66,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     /**
      * Deletes an invoice.
      *
-     * @param id is the event's id.
+     * @param id is the invoice's id.
      */
     @Override
     public void deleteInvoice(Long id) {
