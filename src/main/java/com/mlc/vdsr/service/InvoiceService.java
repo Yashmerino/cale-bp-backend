@@ -1,6 +1,7 @@
 package com.mlc.vdsr.service;
 
 import com.mlc.vdsr.dto.InvoiceDTO;
+import com.mlc.vdsr.utils.InvoiceStatus;
 
 import java.util.List;
 
@@ -28,4 +29,12 @@ public interface InvoiceService {
      * @param id is the invoice's id.
      */
     void deleteInvoice(Long id);
+
+    /**
+     * Updates invoice status.
+     *
+     * @param id is the invoice's id.
+     * @param status is the invoice's status.
+     */
+    void updateInvoiceStatus(Long id, InvoiceStatus status);
 }

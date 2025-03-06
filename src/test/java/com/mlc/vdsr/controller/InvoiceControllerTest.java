@@ -162,7 +162,7 @@ public class InvoiceControllerTest {
     }
 
     /**
-     * Tests create event.
+     * Tests create invoice.
      *
      * @throws Exception if something goes wrong.
      */
@@ -178,5 +178,22 @@ public class InvoiceControllerTest {
         assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"client\":\"Client\",\"amount\":100.0,\"dueDate\":\"2025-03-04T15:33:09Z\",\"status\":\"PAID\"},"));
         assertTrue(result.getResponse().getContentAsString().contains("{\"id\":2,\"client\":\"Client\",\"amount\":10.0,\"dueDate\":"));
         assertTrue(result.getResponse().getContentAsString().contains("\"status\":\"PENDING\""));
+    }
+
+    /**
+     * Tests update invoice status.
+     *
+     * @throws Exception if something goes wrong.
+     */
+    @Test
+    @WithMockUser(username = "owner", authorities = {"OWNER"})
+    void updateInvoiceStatusTest() throws Exception {
+        MvcResult result = mvc.perform(post("/api/invoice/1/update?status=PENDING").contentType(
+                APPLICATION_JSON)).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"invoice_status_updated_successfully\"}"));
+
+        result = mvc.perform(get("/api/invoice")).andExpect(status().isOk()).andReturn();
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"client\":\"Client\",\"amount\":100.0,\"dueDate\":\"2025-03-04T15:33:09Z\",\"status\":\"PENDING\"}]"));
     }
 }

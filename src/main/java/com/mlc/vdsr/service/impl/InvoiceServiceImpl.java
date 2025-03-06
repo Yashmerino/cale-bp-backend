@@ -7,6 +7,7 @@ import com.mlc.vdsr.repository.InvoiceRepository;
 import com.mlc.vdsr.service.InvoiceService;
 import com.mlc.vdsr.utils.DTOToEntityConverter;
 import com.mlc.vdsr.utils.EntityToDTOConverter;
+import com.mlc.vdsr.utils.InvoiceStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -73,5 +74,21 @@ public class InvoiceServiceImpl implements InvoiceService {
                 .orElseThrow(InvoiceNotFoundException::new);
 
         this.invoiceRepository.delete(invoice);
+    }
+
+    /**
+     * Updates invoice status.
+     *
+     * @param id is the invoice's id.
+     * @param status is the invoice's status.
+     */
+    @Override
+    public void updateInvoiceStatus(Long id, InvoiceStatus status) {
+        Invoice invoice = this.invoiceRepository.findById(id)
+                .orElseThrow(InvoiceNotFoundException::new);
+
+        invoice.setStatus(status);
+
+        this.invoiceRepository.save(invoice);
     }
 }

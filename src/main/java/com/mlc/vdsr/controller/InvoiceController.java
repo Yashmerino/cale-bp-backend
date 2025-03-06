@@ -6,6 +6,7 @@ import com.mlc.vdsr.service.InvoiceService;
 import com.mlc.vdsr.swagger.SwaggerConfig;
 import com.mlc.vdsr.swagger.SwaggerHttpStatus;
 import com.mlc.vdsr.swagger.SwaggerMessages;
+import com.mlc.vdsr.utils.InvoiceStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -15,6 +16,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -120,5 +122,31 @@ public class InvoiceController {
         this.invoiceService.createInvoice(invoiceDTO);
 
         return new ResponseEntity<>(SuccessDTO.returnNewDTO(HttpStatus.OK.value(), "invoice_created_successfully"), HttpStatus.OK);
+    }
+
+    /**
+     * Creates an invoice.
+     *
+     * @param invoiceDTO is the invoice's DTO.
+     *
+     * @return SuccessDTO.
+     */
+    @Operation(summary = "Creates an invoice.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = SwaggerHttpStatus.OK, description = SwaggerMessages.SUCCESS,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.FORBIDDEN, description = SwaggerMessages.FORBIDDEN,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.UNAUTHORIZED, description = SwaggerMessages.UNAUTHORIZED,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.BAD_REQUEST, description = SwaggerMessages.BAD_REQUEST,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.INTERNAL_SERVER_ERROR, description = SwaggerMessages.INTERNAL_SERVER_ERROR,
+                    content = @Content)})
+    @PostMapping("/{id}/update")
+    public ResponseEntity<SuccessDTO> updateInvoiceStatus(@PathVariable(value = "id") Long id, @PathParam(value = "status")InvoiceStatus status) {
+        this.invoiceService.updateInvoiceStatus(id, status);
+
+        return new ResponseEntity<>(SuccessDTO.returnNewDTO(HttpStatus.OK.value(), "invoice_status_updated_successfully"), HttpStatus.OK);
     }
 }
