@@ -3,6 +3,7 @@ package com.mlc.vdsr.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mlc.vdsr.dto.EventDTO;
 import com.mlc.vdsr.dto.InvoiceDTO;
+import com.mlc.vdsr.utils.InvoiceStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,7 @@ public class InvoiceControllerTest {
         invoiceDTO.setClient("Client");
         invoiceDTO.setDueDate(Instant.now());
         invoiceDTO.setAmount(10.0);
+        invoiceDTO.setStatus(InvoiceStatus.PENDING);
     }
 
     /**
@@ -69,7 +71,7 @@ public class InvoiceControllerTest {
     void getAllInvoicesTest() throws Exception {
         MvcResult result = mvc.perform(get("/api/invoice")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"client\":\"Client\",\"amount\":100.0,\"dueDate\":\"2025-03-04T15:33:09Z\"}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"client\":\"Client\",\"amount\":100.0,\"dueDate\":\"2025-03-04T15:33:09Z\",\"status\":\"PAID\"}]"));
     }
 
     /**
@@ -82,7 +84,7 @@ public class InvoiceControllerTest {
     void getAllInvoicesAsTLTest() throws Exception {
         MvcResult result = mvc.perform(get("/api/invoice")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"client\":\"Client\",\"amount\":100.0,\"dueDate\":\"2025-03-04T15:33:09Z\"}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"client\":\"Client\",\"amount\":100.0,\"dueDate\":\"2025-03-04T15:33:09Z\",\"status\":\"PAID\"}]"));
     }
 
     /**
@@ -173,8 +175,8 @@ public class InvoiceControllerTest {
         assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"invoice_created_successfully\"}"));
 
         result = mvc.perform(get("/api/invoice")).andExpect(status().isOk()).andReturn();
-
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"client\":\"Client\",\"amount\":100.0,\"dueDate\":\"2025-03-04T15:33:09Z\"},"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"client\":\"Client\",\"amount\":100.0,\"dueDate\":\"2025-03-04T15:33:09Z\",\"status\":\"PAID\"},"));
         assertTrue(result.getResponse().getContentAsString().contains("{\"id\":2,\"client\":\"Client\",\"amount\":10.0,\"dueDate\":"));
+        assertTrue(result.getResponse().getContentAsString().contains("\"status\":\"PENDING\""));
     }
 }

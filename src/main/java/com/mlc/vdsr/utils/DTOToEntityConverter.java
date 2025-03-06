@@ -118,7 +118,25 @@ public class DTOToEntityConverter {
         invoice.setClient(invoiceDTO.getClient());
         invoice.setAmount(invoiceDTO.getAmount());
         invoice.setDueDate(invoiceDTO.getDueDate());
+        invoice.setStatus(invoiceDTO.getStatus());
 
         return invoice;
+    }
+
+    /**
+     * Converts Budget DTO to Budget Entity.
+     *
+     * @param budgetDTO is the Budget's DTO.
+     *
+     * @return Budget entity.
+     */
+    public static Budget convertToBudgetEntity(BudgetDTO budgetDTO) {
+        Budget budget = new Budget();
+        budget.setDepartment(budgetDTO.getDepartment());
+        budget.setName(budgetDTO.getName());
+        budget.setAmount(budgetDTO.getAmount());
+        budget.setStatus(budgetDTO.getStatus());
+
+        return budget;
     }
 }

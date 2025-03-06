@@ -5,6 +5,7 @@ import com.mlc.vdsr.exception.UserNotFoundException;
 import com.mlc.vdsr.repository.*;
 import com.mlc.vdsr.utils.Availability;
 import com.mlc.vdsr.utils.Department;
+import com.mlc.vdsr.utils.InvoiceStatus;
 import com.mlc.vdsr.utils.RoleEnum;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -135,6 +136,7 @@ public class Initializer implements CommandLineRunner {
         invoice.setClient("Client");
         invoice.setAmount(100.0);
         invoice.setDueDate(Instant.ofEpochSecond(1741102389));
+        invoice.setStatus(InvoiceStatus.PAID);
         invoiceRepository.save(invoice);
     }
 }

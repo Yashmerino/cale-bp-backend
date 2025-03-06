@@ -1,5 +1,6 @@
 package com.mlc.vdsr.dto;
 
+import com.mlc.vdsr.utils.InvoiceStatus;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -40,6 +41,12 @@ public class InvoiceDTO {
      */
     @NotNull(message = "due_date_is_required")
     private Instant dueDate;
+
+    /**
+     * Invoice's status.
+     */
+    @NotNull(message = "status_is_required")
+    private InvoiceStatus status;
 }
 
 
