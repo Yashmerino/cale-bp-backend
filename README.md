@@ -44,7 +44,7 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: YOUR_POSTGRES_USER
+      POSTGRES_USER: YOUR_POSTGRES_USERNAME
       POSTGRES_PASSWORD: YOUR_POSTGRES_PASSWORD
       POSTGRES_DB: vdsr
     healthcheck:
