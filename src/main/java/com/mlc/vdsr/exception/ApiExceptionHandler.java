@@ -270,4 +270,21 @@ public class ApiExceptionHandler {
 
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
+
+    /**
+     * Handles the {@link AccessDeniedException}
+     *
+     * @param e is the thrown exception.
+     * @return <code>ResponseEntity</code>
+     */
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ResponseEntity<Object> handleAccessDeniedException(AccessDeniedException e) {
+        ErrorDTO error = new ErrorDTO();
+        error.setTimestamp(LocalDateTime.now());
+        error.setError(e.getMessage());
+        error.setStatus(HttpStatus.FORBIDDEN.value());
+
+        return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
+    }
 }

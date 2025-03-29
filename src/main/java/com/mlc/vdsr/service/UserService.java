@@ -2,6 +2,7 @@ package com.mlc.vdsr.service;
 
 import com.mlc.vdsr.dto.ProjectDTO;
 import com.mlc.vdsr.dto.UserDTO;
+import com.mlc.vdsr.dto.UserInfoDTO;
 
 import java.util.List;
 
@@ -64,4 +65,13 @@ public interface UserService {
      * @param id is the user's id.
      */
     List<ProjectDTO> getUserProjects(Long id);
+
+    /**
+     * Returns user's information.
+     *
+     * @param id is the user's id.
+     *
+     * @return UserInfoDTO.
+     */
+    UserInfoDTO getUserInfo(Long id);
 }

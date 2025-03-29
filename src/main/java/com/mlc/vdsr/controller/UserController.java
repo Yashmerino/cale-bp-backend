@@ -3,6 +3,7 @@ package com.mlc.vdsr.controller;
 import com.mlc.vdsr.dto.ProjectDTO;
 import com.mlc.vdsr.dto.SuccessDTO;
 import com.mlc.vdsr.dto.UserDTO;
+import com.mlc.vdsr.dto.UserInfoDTO;
 import com.mlc.vdsr.service.UserService;
 import com.mlc.vdsr.swagger.SwaggerConfig;
 import com.mlc.vdsr.swagger.SwaggerHttpStatus;
@@ -226,5 +227,29 @@ public class UserController {
     @GetMapping("/{id}/projects")
     public List<ProjectDTO> getUserProjects(@PathVariable(value = "id") Long id) {
         return this.userService.getUserProjects(id);
+    }
+
+    /**
+     * Gets user's information.
+     *
+     * @param id is the user's id.
+     *
+     * @return UserInfoDTO
+     */
+    @Operation(summary = "Gets user's information.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = SwaggerHttpStatus.OK, description = SwaggerMessages.SUCCESS,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.FORBIDDEN, description = SwaggerMessages.FORBIDDEN,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.UNAUTHORIZED, description = SwaggerMessages.UNAUTHORIZED,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.BAD_REQUEST, description = SwaggerMessages.BAD_REQUEST,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.INTERNAL_SERVER_ERROR, description = SwaggerMessages.INTERNAL_SERVER_ERROR,
+                    content = @Content)})
+    @GetMapping("/{id}/info")
+    public UserInfoDTO getUserInfo(@PathVariable(value = "id") Long id) {
+        return this.userService.getUserInfo(id);
     }
 }

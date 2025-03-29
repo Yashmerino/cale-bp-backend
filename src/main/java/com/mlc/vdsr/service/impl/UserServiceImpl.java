@@ -2,14 +2,18 @@ package com.mlc.vdsr.service.impl;
 
 import com.mlc.vdsr.dto.ProjectDTO;
 import com.mlc.vdsr.dto.UserDTO;
+import com.mlc.vdsr.dto.UserInfoDTO;
 import com.mlc.vdsr.entity.Project;
 import com.mlc.vdsr.entity.User;
+import com.mlc.vdsr.exception.AccessDeniedException;
 import com.mlc.vdsr.exception.ProjectNotFoundException;
 import com.mlc.vdsr.exception.UserNotFoundException;
 import com.mlc.vdsr.repository.ProjectRepository;
 import com.mlc.vdsr.repository.UserRepository;
 import com.mlc.vdsr.service.UserService;
 import com.mlc.vdsr.utils.EntityToDTOConverter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -155,5 +159,32 @@ public class UserServiceImpl implements UserService {
         }
 
         return projectDTOs;
+    }
+
+    /**
+     * Returns user's information.
+     *
+     * @param id is the user's id.
+     * @return UserInfoDTO.
+     */
+    @Override
+    public UserInfoDTO getUserInfo(Long id) {
+        User user = this.userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserUsername = auth.getName();
+
+        if (!user.getUsername().equals(currentUserUsername)) {
+            throw new AccessDeniedException();
+        }
+
+        UserInfoDTO userInfoDTO = new UserInfoDTO();
+        userInfoDTO.setId(user.getId());
+        userInfoDTO.setFirstName(user.getFirstName());
+        userInfoDTO.setLastName(user.getLastName());
+        userInfoDTO.setEmail(user.getEmail());
+        userInfoDTO.setDateOfBirth(user.getDateOfBirth());
+
+        return userInfoDTO;
     }
 }

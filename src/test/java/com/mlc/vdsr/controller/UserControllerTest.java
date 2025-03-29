@@ -242,4 +242,43 @@ public class UserControllerTest {
 
         assertTrue(result.getResponse().getContentAsString().contains(",\"status\":404,\"error\":\"user_not_found\"}"));
     }
+
+    /**
+     * Tests get user info.
+     *
+     * @throws Exception if something goes wrong.
+     */
+    @Test
+    @WithMockUser(username = "owner", authorities = {"OWNER"})
+    void getUserInfoSuccessful() throws Exception {
+        MvcResult result = mvc.perform(get("/api/user/1/info")).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("{\"id\":1,\"firstName\":\"owner\",\"lastName\":\"owner\",\"email\":\"owner@test.com\",\"dateOfBirth\":\""));
+    }
+
+    /**
+     * Tests get user info non existing user.
+     *
+     * @throws Exception if something goes wrong.
+     */
+    @Test
+    @WithMockUser(username = "owner", authorities = {"OWNER"})
+    void getUserInfoNonExisting() throws Exception {
+        MvcResult result = mvc.perform(get("/api/user/9999999999/info")).andExpect(status().isNotFound()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains(",\"status\":404,\"error\":\"user_not_found\"}"));
+    }
+
+    /**
+     * Tests get user info for another user that user doesn't have access to.
+     *
+     * @throws Exception if something goes wrong.
+     */
+    @Test
+    @WithMockUser(username = "owner", authorities = {"OWNER"})
+    void getUserInfoForAnotherUser() throws Exception {
+        MvcResult result = mvc.perform(get("/api/user/2/info")).andExpect(status().isForbidden()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains(",\"status\":403,\"error\":\"access_denied\"}"));
+    }
 }
