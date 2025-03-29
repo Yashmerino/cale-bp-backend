@@ -1,5 +1,6 @@
 package com.mlc.vdsr.service.impl;
 
+import com.mlc.vdsr.dto.auth.AuthResponseDTO;
 import com.mlc.vdsr.dto.auth.LoginDTO;
 import com.mlc.vdsr.dto.auth.RegisterDTO;
 import com.mlc.vdsr.entity.Role;
@@ -115,14 +116,16 @@ public class AuthServiceImpl implements AuthService {
      * @return JWT Token.
      */
     @Override
-    public String login(LoginDTO loginDTO) {
+    public AuthResponseDTO login(LoginDTO loginDTO) {
         if (!userRepository.existsByUsername(loginDTO.getUsername())) {
             throw new UsernameNotFoundException();
         }
 
+        Long userId = userRepository.findByUsername(loginDTO.getUsername()).orElseThrow(UsernameNotFoundException::new).getId();
+
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return jwtProvider.generateToken(authentication);
+        return new AuthResponseDTO(jwtProvider.generateToken(authentication), userId);
     }
 }

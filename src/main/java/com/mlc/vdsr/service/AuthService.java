@@ -23,6 +23,7 @@ package com.mlc.vdsr.service;
  + SOFTWARE.
  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
+import com.mlc.vdsr.dto.auth.AuthResponseDTO;
 import com.mlc.vdsr.dto.auth.LoginDTO;
 import com.mlc.vdsr.dto.auth.RegisterDTO;
 
@@ -44,5 +45,5 @@ public interface AuthService {
      * @param loginDTO is the login DTO.
      * @return JWT Token.
      */
-    String login(final LoginDTO loginDTO);
+    AuthResponseDTO login(final LoginDTO loginDTO);
 }

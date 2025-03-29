@@ -21,11 +21,17 @@ public class AuthResponseDTO {
     private String tokenType = JWT_HEADER;
 
     /**
+     * User's ID.
+     */
+    private Long userId;
+
+    /**
      * Constructor.
      *
      * @param accessToken is the access token.
      */
-    public AuthResponseDTO(final String accessToken) {
+    public AuthResponseDTO(final String accessToken, final Long userId) {
         this.accessToken = accessToken;
+        this.userId = userId;
     }
 }

@@ -94,8 +94,8 @@ public class AuthController {
                     content = @Content)})
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@Parameter(description = "JSON Object for user's credentials.") @Valid @RequestBody LoginDTO loginDTO) {
-        String token = authService.login(loginDTO);
+        AuthResponseDTO authResponseDTO = authService.login(loginDTO);
 
-        return new ResponseEntity<>(new AuthResponseDTO(token), HttpStatus.OK);
+        return new ResponseEntity<>(authResponseDTO, HttpStatus.OK);
     }
 }

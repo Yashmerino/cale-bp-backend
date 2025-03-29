@@ -185,6 +185,7 @@ class AuthControllerTest {
 
         String content = result.getResponse().getContentAsString();
         assertTrue(content.contains("Bearer "));
+        assertTrue(content.contains("\"userId\":3"));
     }
 
     /**
