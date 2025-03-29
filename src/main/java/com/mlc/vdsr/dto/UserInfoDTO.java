@@ -1,5 +1,6 @@
 package com.mlc.vdsr.dto;
 
+import com.mlc.vdsr.entity.Role;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * User Info DTO class.
@@ -47,6 +49,12 @@ public class UserInfoDTO {
     @Size(min = 4, message = "email_too_short")
     @Size(max = 255, message = "email_too_long")
     private String email;
+
+    /**
+     * User's roles.
+     */
+    @NotNull(message = "roles_are_required")
+    private Set<Role> roles;
 
     /**
      * User's date of birth.
