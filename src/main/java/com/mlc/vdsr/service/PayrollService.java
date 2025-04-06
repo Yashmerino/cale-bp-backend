@@ -1,6 +1,7 @@
 package com.mlc.vdsr.service;
 
 import com.mlc.vdsr.dto.PayrollDTO;
+import com.mlc.vdsr.dto.PayrollDetailsDTO;
 
 import java.util.List;
 
@@ -11,9 +12,9 @@ public interface PayrollService {
     /**
      * Returns all projects.
      *
-     * @return List of ProjectDTOs.
+     * @return List of PayrollDetailsDTOs.
      */
-    List<PayrollDTO> getAllPayrolls();
+    List<PayrollDetailsDTO> getAllPayrolls();
 
     /**
      * Create a payroll.

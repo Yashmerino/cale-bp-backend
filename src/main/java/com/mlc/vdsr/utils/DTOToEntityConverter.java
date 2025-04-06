@@ -87,6 +87,7 @@ public class DTOToEntityConverter {
         payroll.setUser(user);
         payroll.setDate(payrollDTO.getDate());
         payroll.setSalary(payrollDTO.getSalary());
+        payroll.setStatus(payrollDTO.getStatus());
 
         return payroll;
     }

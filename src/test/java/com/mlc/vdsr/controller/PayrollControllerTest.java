@@ -2,6 +2,7 @@ package com.mlc.vdsr.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mlc.vdsr.dto.PayrollDTO;
+import com.mlc.vdsr.enums.PayrollStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,8 @@ public class PayrollControllerTest {
         payrollDTO = new PayrollDTO();
         payrollDTO.setSalary(100.0);
         payrollDTO.setDate(Instant.ofEpochSecond(1741102389));
-        payrollDTO.setUserId(1L);
+        payrollDTO.setUserId(2L);
+        payrollDTO.setStatus(PayrollStatus.UNPAID);
     }
 
     /**
@@ -68,7 +70,7 @@ public class PayrollControllerTest {
     void getAllPayrollsTest() throws Exception {
         MvcResult result = mvc.perform(get("/api/payroll")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"salary\":100.0,\"date\":\"2025-03-04T15:33:09Z\",\"userId\":2}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"salary\":100.0,\"date\":\"2025-03-04T15:33:09Z\",\"userId\":2,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"}]"));
     }
 
     /**
@@ -81,7 +83,7 @@ public class PayrollControllerTest {
     void getAllPayrollsAsTLTest() throws Exception {
         MvcResult result = mvc.perform(get("/api/payroll")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"salary\":100.0,\"date\":\"2025-03-04T15:33:09Z\",\"userId\":2}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"salary\":100.0,\"date\":\"2025-03-04T15:33:09Z\",\"userId\":2,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"}]"));
     }
 
     /**
@@ -156,6 +158,6 @@ public class PayrollControllerTest {
 
         result = mvc.perform(get("/api/payroll")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"salary\":100.0,\"date\":\"2025-03-04T15:33:09Z\",\"userId\":2},{\"id\":2,\"salary\":100.0,\"date\":\"2025-03-04T15:33:09Z\",\"userId\":1}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"salary\":100.0,\"date\":\"2025-03-04T15:33:09Z\",\"userId\":2,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"},{\"id\":2,\"salary\":100.0,\"date\":\"2025-03-04T15:33:09Z\",\"userId\":2,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"}]"));
     }
 }

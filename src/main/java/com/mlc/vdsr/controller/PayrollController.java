@@ -1,6 +1,7 @@
 package com.mlc.vdsr.controller;
 
 import com.mlc.vdsr.dto.PayrollDTO;
+import com.mlc.vdsr.dto.PayrollDetailsDTO;
 import com.mlc.vdsr.dto.SuccessDTO;
 import com.mlc.vdsr.service.PayrollService;
 import com.mlc.vdsr.swagger.SwaggerConfig;
@@ -50,13 +51,13 @@ public class PayrollController {
     /**
      * Returns all existing payrolls.
      *
-     * @return List of PayrollDTOs.
+     * @return List of PayrollDetailsDTOs.
      */
     @Operation(summary = "Returns all payrolls.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = SwaggerHttpStatus.OK, description = SwaggerMessages.SUCCESS,
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(type = "array", implementation = PayrollDTO.class))}),
+                            schema = @Schema(type = "array", implementation = PayrollDetailsDTO.class))}),
             @ApiResponse(responseCode = SwaggerHttpStatus.FORBIDDEN, description = SwaggerMessages.FORBIDDEN,
                     content = @Content),
             @ApiResponse(responseCode = SwaggerHttpStatus.UNAUTHORIZED, description = SwaggerMessages.UNAUTHORIZED,
@@ -66,7 +67,7 @@ public class PayrollController {
             @ApiResponse(responseCode = SwaggerHttpStatus.INTERNAL_SERVER_ERROR, description = SwaggerMessages.INTERNAL_SERVER_ERROR,
                     content = @Content)})
     @GetMapping
-    public List<PayrollDTO> getAllPayrolls() {
+    public List<PayrollDetailsDTO> getAllPayrolls() {
         return this.payrollService.getAllPayrolls();
     }
 

@@ -1,13 +1,12 @@
 package com.mlc.vdsr.dto;
 
-import com.mlc.vdsr.entity.User;
+import com.mlc.vdsr.enums.Contract;
+import com.mlc.vdsr.enums.Department;
 import com.mlc.vdsr.enums.PayrollStatus;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +21,7 @@ import java.time.Instant;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PayrollDTO {
+public class PayrollDetailsDTO {
 
     /**
      * Payroll's ID.
@@ -43,6 +42,12 @@ public class PayrollDTO {
     private Instant date;
 
     /**
+     * Payroll's user.
+     */
+    @NotNull(message = "user_is_required")
+    private Long userId;
+
+    /**
      * Payroll's status
      */
     @Enumerated(EnumType.STRING)
@@ -50,10 +55,23 @@ public class PayrollDTO {
     private PayrollStatus status;
 
     /**
-     * Payroll's user.
+     * Payroll's user's name.
      */
-    @NotNull(message = "user_is_required")
-    private Long userId;
+    @NotNull(message = "user_name_is_required")
+    private String userName;
+
+    /**
+     * Payroll's user's department.
+     */
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "user_name_is_required")
+    private Department department;
+
+    /**
+     * Payroll's user's position.
+     */
+    @NotNull(message = "user_name_is_required")
+    private String position;
 }
 
 

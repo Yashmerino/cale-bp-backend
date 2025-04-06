@@ -91,8 +91,27 @@ public class EntityToDTOConverter {
         payrollDTO.setUserId(payroll.getUser().getId());
         payrollDTO.setDate(payroll.getDate());
         payrollDTO.setSalary(payroll.getSalary());
+        payrollDTO.setStatus(payroll.getStatus());
 
         return payrollDTO;
+    }
+
+    /**
+     * Converts Payroll entity to Payroll Details DTO.
+     *
+     * @param payroll is the Payroll's entity.
+     *
+     * @return PayrollDetailsDTO.
+     */
+    public static PayrollDetailsDTO convertToPayrollDetailsDTO(Payroll payroll) {
+        PayrollDetailsDTO payrollDetailsDTO = new PayrollDetailsDTO();
+        payrollDetailsDTO.setId(payroll.getId());
+        payrollDetailsDTO.setUserId(payroll.getUser().getId());
+        payrollDetailsDTO.setDate(payroll.getDate());
+        payrollDetailsDTO.setSalary(payroll.getSalary());
+        payrollDetailsDTO.setStatus(payroll.getStatus());
+
+        return payrollDetailsDTO;
     }
 
     /**
