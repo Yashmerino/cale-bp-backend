@@ -1,8 +1,9 @@
 package com.mlc.vdsr.entity;
 
 import com.mlc.vdsr.entity.base.BaseEntity;
-import com.mlc.vdsr.enums.Availability;
+import com.mlc.vdsr.enums.Contract;
 import com.mlc.vdsr.enums.Department;
+import com.mlc.vdsr.enums.Flexibility;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -41,11 +42,18 @@ public class Recruitment extends BaseEntity {
     private Department department;
 
     /**
-     * Recruitment's availability. When the job will be available.
+     * Recruitment's contract.
      */
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "availability_is_required")
-    private Availability availability;
+    @NotNull(message = "contract_is_required")
+    private Contract contract;
+
+    /**
+     * Recruitment's flexibility.
+     */
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "flexibility_is_required")
+    private Flexibility flexibility;
 
     /**
      * Is recruitment open or no.

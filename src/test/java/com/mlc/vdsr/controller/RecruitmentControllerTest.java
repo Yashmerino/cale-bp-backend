@@ -2,8 +2,9 @@ package com.mlc.vdsr.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mlc.vdsr.dto.RecruitmentDTO;
-import com.mlc.vdsr.enums.Availability;
+import com.mlc.vdsr.enums.Contract;
 import com.mlc.vdsr.enums.Department;
+import com.mlc.vdsr.enums.Flexibility;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,8 @@ public class RecruitmentControllerTest {
         recruitmentDTO.setId(1L);
         recruitmentDTO.setTitle("Recruitment");
         recruitmentDTO.setDepartment(Department.IT);
-        recruitmentDTO.setAvailability(Availability.IMMEDIATE);
+        recruitmentDTO.setFlexibility(Flexibility.HYBRID);
+        recruitmentDTO.setContract(Contract.PERMANENT);
         recruitmentDTO.setOpen(true);
     }
 
@@ -70,7 +72,7 @@ public class RecruitmentControllerTest {
     void getAllRecruitmentsTest() throws Exception {
         MvcResult result = mvc.perform(get("/api/recruitment")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Recruitment\",\"department\":\"IT\",\"availability\":\"IMMEDIATE\",\"open\":true}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Recruitment\",\"department\":\"IT\",\"contract\":\"PERMANENT\",\"flexibility\":\"HYBRID\",\"open\":true}]"));
     }
 
     /**
@@ -83,7 +85,7 @@ public class RecruitmentControllerTest {
     void getAllRecruitmentsAsTLTest() throws Exception {
         MvcResult result = mvc.perform(get("/api/recruitment")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Recruitment\",\"department\":\"IT\",\"availability\":\"IMMEDIATE\",\"open\":true}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Recruitment\",\"department\":\"IT\",\"contract\":\"PERMANENT\",\"flexibility\":\"HYBRID\",\"open\":true}]"));
     }
 
     /**
@@ -176,7 +178,7 @@ public class RecruitmentControllerTest {
 
         result = mvc.perform(get("/api/recruitment")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Recruitment\",\"department\":\"IT\",\"availability\":\"IMMEDIATE\",\"open\":true},{\"id\":2,\"title\":\"Recruitment\",\"department\":\"IT\",\"availability\":\"IMMEDIATE\",\"open\":true}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Recruitment\",\"department\":\"IT\",\"contract\":\"PERMANENT\",\"flexibility\":\"HYBRID\",\"open\":true},{\"id\":2,\"title\":\"Recruitment\",\"department\":\"IT\",\"contract\":\"PERMANENT\",\"flexibility\":\"HYBRID\",\"open\":true}]"));
     }
 
     /**
@@ -194,7 +196,7 @@ public class RecruitmentControllerTest {
 
         result = mvc.perform(get("/api/recruitment")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Recruitment\",\"department\":\"IT\",\"availability\":\"IMMEDIATE\",\"open\":false}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Recruitment\",\"department\":\"IT\",\"contract\":\"PERMANENT\",\"flexibility\":\"HYBRID\",\"open\":false}]"));
     }
 
     /**
@@ -212,6 +214,6 @@ public class RecruitmentControllerTest {
 
         result = mvc.perform(get("/api/recruitment")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Recruitment\",\"department\":\"IT\",\"availability\":\"IMMEDIATE\",\"open\":true}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"title\":\"Recruitment\",\"department\":\"IT\",\"contract\":\"PERMANENT\",\"flexibility\":\"HYBRID\",\"open\":true}]"));
     }
 }

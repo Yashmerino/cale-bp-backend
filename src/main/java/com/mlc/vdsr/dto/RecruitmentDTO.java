@@ -1,7 +1,10 @@
 package com.mlc.vdsr.dto;
 
-import com.mlc.vdsr.enums.Availability;
+import com.mlc.vdsr.enums.Contract;
 import com.mlc.vdsr.enums.Department;
+import com.mlc.vdsr.enums.Flexibility;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -40,10 +43,18 @@ public class RecruitmentDTO {
     private Department department;
 
     /**
-     * Recruitment's availability. When the job will be available.
+     * Recruitment's contract.
      */
-    @NotNull(message = "availability_is_required")
-    private Availability availability;
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "contract_is_required")
+    private Contract contract;
+
+    /**
+     * Recruitment's flexibility.
+     */
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "flexibility_is_required")
+    private Flexibility flexibility;
 
     /**
      * Is recruitment open or no.

@@ -56,8 +56,9 @@ public class EntityToDTOConverter {
         recruitmentDTO.setId(recruitment.getId());
         recruitmentDTO.setTitle(recruitment.getTitle());
         recruitmentDTO.setDepartment(recruitment.getDepartment());
-        recruitmentDTO.setAvailability(recruitment.getAvailability());
         recruitmentDTO.setOpen(recruitment.getOpen());
+        recruitmentDTO.setFlexibility(recruitment.getFlexibility());
+        recruitmentDTO.setContract(recruitment.getContract());
 
         return recruitmentDTO;
     }

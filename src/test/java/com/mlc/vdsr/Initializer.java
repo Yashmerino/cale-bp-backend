@@ -113,7 +113,8 @@ public class Initializer implements CommandLineRunner {
         Recruitment recruitment = new Recruitment();
         recruitment.setTitle("Recruitment");
         recruitment.setDepartment(Department.IT);
-        recruitment.setAvailability(Availability.IMMEDIATE);
+        recruitment.setFlexibility(Flexibility.HYBRID);
+        recruitment.setContract(Contract.PERMANENT);
         recruitment.setOpen(true);
         recruitmentRepository.save(recruitment);
 
