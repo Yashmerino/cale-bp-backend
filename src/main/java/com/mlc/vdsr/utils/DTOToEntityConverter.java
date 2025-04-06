@@ -85,7 +85,7 @@ public class DTOToEntityConverter {
     public static Payroll convertToPayrollEntity(PayrollDTO payrollDTO, User user) {
         Payroll payroll = new Payroll();
         payroll.setUser(user);
-        payroll.setDate(payrollDTO.getDate());
+        payroll.setPaidDate(payrollDTO.getPaidDate());
         payroll.setSalary(payrollDTO.getSalary());
         payroll.setStatus(payrollDTO.getStatus());
 

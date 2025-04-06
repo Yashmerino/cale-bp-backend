@@ -89,7 +89,7 @@ public class EntityToDTOConverter {
         PayrollDTO payrollDTO = new PayrollDTO();
         payrollDTO.setId(payroll.getId());
         payrollDTO.setUserId(payroll.getUser().getId());
-        payrollDTO.setDate(payroll.getDate());
+        payrollDTO.setPaidDate(payroll.getPaidDate());
         payrollDTO.setSalary(payroll.getSalary());
         payrollDTO.setStatus(payroll.getStatus());
 
@@ -107,7 +107,7 @@ public class EntityToDTOConverter {
         PayrollDetailsDTO payrollDetailsDTO = new PayrollDetailsDTO();
         payrollDetailsDTO.setId(payroll.getId());
         payrollDetailsDTO.setUserId(payroll.getUser().getId());
-        payrollDetailsDTO.setDate(payroll.getDate());
+        payrollDetailsDTO.setPaidDate(payroll.getPaidDate());
         payrollDetailsDTO.setSalary(payroll.getSalary());
         payrollDetailsDTO.setStatus(payroll.getStatus());
 

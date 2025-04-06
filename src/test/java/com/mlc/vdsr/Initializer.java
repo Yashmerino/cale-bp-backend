@@ -125,7 +125,7 @@ public class Initializer implements CommandLineRunner {
         Payroll payroll = new Payroll();
         payroll.setUser(this.userRepository.findByUsername("artiombozieac").orElseThrow(UserNotFoundException::new));
         payroll.setSalary(100.0);
-        payroll.setDate(Instant.ofEpochSecond(1741102389));
+        payroll.setPaidDate(Instant.ofEpochSecond(1741102389));
         payroll.setStatus(PayrollStatus.UNPAID);
         payrollRepository.save(payroll);
 

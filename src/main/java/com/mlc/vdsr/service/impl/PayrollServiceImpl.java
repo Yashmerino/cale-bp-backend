@@ -99,7 +99,7 @@ public class PayrollServiceImpl implements PayrollService {
     public void updatePayroll(Long id, PayrollDTO payrollDTO) {
         Payroll payroll = this.payrollRepository.findById(id).orElseThrow(PayrollNotFoundException::new);
         payroll.setSalary(payrollDTO.getSalary());
-        payroll.setDate(payrollDTO.getDate());
+        payroll.setPaidDate(payrollDTO.getPaidDate());
         payroll.setStatus(payrollDTO.getStatus());
         payroll.setUser(this.userRepository.findById(payrollDTO.getUserId()).orElseThrow(UserNotFoundException::new));
 

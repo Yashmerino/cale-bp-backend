@@ -36,10 +36,9 @@ public class PayrollDetailsDTO {
     private Double salary;
 
     /**
-     * Payroll's date.
+     * Payroll's paid date.
      */
-    @NotNull(message = "date_is_required")
-    private Instant date;
+    private Instant paidDate;
 
     /**
      * Payroll's user.
