@@ -90,6 +90,23 @@ public class PayrollServiceImpl implements PayrollService {
     }
 
     /**
+     * Updates a payroll.
+     *
+     * @param id         is the payroll to be update's ID.
+     * @param payrollDTO is the payroll's DTO.
+     */
+    @Override
+    public void updatePayroll(Long id, PayrollDTO payrollDTO) {
+        Payroll payroll = this.payrollRepository.findById(id).orElseThrow(PayrollNotFoundException::new);
+        payroll.setSalary(payrollDTO.getSalary());
+        payroll.setDate(payrollDTO.getDate());
+        payroll.setStatus(payrollDTO.getStatus());
+        payroll.setUser(this.userRepository.findById(payrollDTO.getUserId()).orElseThrow(UserNotFoundException::new));
+
+        this.payrollRepository.save(payroll);
+    }
+
+    /**
      * Deletes a payroll.
      *
      * @param id is the payroll's id.

@@ -160,4 +160,33 @@ public class PayrollControllerTest {
 
         assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"salary\":100.0,\"date\":\"2025-03-04T15:33:09Z\",\"userId\":2,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"},{\"id\":2,\"salary\":100.0,\"date\":\"2025-03-04T15:33:09Z\",\"userId\":2,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"}]"));
     }
+
+    /**
+     * Tests update payroll.
+     *
+     * @throws Exception if something goes wrong.
+     */
+    @Test
+    @WithMockUser(username = "owner", authorities = {"OWNER"})
+    void updatePayrollTest() throws Exception {
+        MvcResult result = mvc.perform(post("/api/payroll").contentType(
+                APPLICATION_JSON).content(objectMapper.writeValueAsString(payrollDTO))).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"payroll_created_successfully\"}"));
+
+        result = mvc.perform(get("/api/payroll")).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"salary\":100.0,\"date\":\"2025-03-04T15:33:09Z\",\"userId\":2,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"},{\"id\":2,\"salary\":100.0,\"date\":\"2025-03-04T15:33:09Z\",\"userId\":2,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"}]"));
+
+        payrollDTO.setStatus(PayrollStatus.PAID);
+        result = mvc.perform(post("/api/payroll/1").contentType(
+                APPLICATION_JSON).content(objectMapper.writeValueAsString(payrollDTO))).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("{\"status\":200,\"message\":\"payroll_updated_successfully\"}"));
+
+        result = mvc.perform(get("/api/payroll")).andExpect(status().isOk()).andReturn();
+
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"salary\":100.0,\"date\":\"2025-03-04T15:33:09Z\",\"userId\":2,\"status\":\"PAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"},{\"id\":2,\"salary\":100.0,\"date\":\"2025-03-04T15:33:09Z\",\"userId\":2,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"}]"));
+
+    }
 }

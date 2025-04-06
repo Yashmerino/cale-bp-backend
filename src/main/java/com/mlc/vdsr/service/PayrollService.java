@@ -24,6 +24,14 @@ public interface PayrollService {
     void createPayroll(final PayrollDTO payrollDTO);
 
     /**
+     * Updates a payroll.
+     *
+     * @param id is the payroll to be update's ID.
+     * @param payrollDTO is the payroll's DTO.
+     */
+    void updatePayroll(final Long id, final PayrollDTO payrollDTO);
+
+    /**
      * Deletes a payroll.
      *
      * @param id is the payroll's id.

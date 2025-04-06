@@ -122,4 +122,31 @@ public class PayrollController {
 
         return new ResponseEntity<>(SuccessDTO.returnNewDTO(HttpStatus.OK.value(), "payroll_created_successfully"), HttpStatus.OK);
     }
+
+    /**
+     * Updates a payroll.
+     *
+     * @param id is the payroll to be update's id.
+     * @param payrollDTO is the payroll's DTO.
+     *
+     * @return SuccessDTO.
+     */
+    @Operation(summary = "Updates a payroll.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = SwaggerHttpStatus.OK, description = SwaggerMessages.SUCCESS,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.FORBIDDEN, description = SwaggerMessages.FORBIDDEN,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.UNAUTHORIZED, description = SwaggerMessages.UNAUTHORIZED,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.BAD_REQUEST, description = SwaggerMessages.BAD_REQUEST,
+                    content = @Content),
+            @ApiResponse(responseCode = SwaggerHttpStatus.INTERNAL_SERVER_ERROR, description = SwaggerMessages.INTERNAL_SERVER_ERROR,
+                    content = @Content)})
+    @PostMapping("/{id}")
+    public ResponseEntity<SuccessDTO> updatePayroll(@PathVariable(name = "id") final Long id, @Parameter(description = "JSON Object for payroll's details.") @Valid @RequestBody PayrollDTO payrollDTO) {
+        this.payrollService.updatePayroll(id, payrollDTO);
+
+        return new ResponseEntity<>(SuccessDTO.returnNewDTO(HttpStatus.OK.value(), "payroll_updated_successfully"), HttpStatus.OK);
+    }
 }
