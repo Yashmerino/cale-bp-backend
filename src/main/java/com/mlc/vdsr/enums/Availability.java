@@ -1,4 +1,4 @@
-package com.mlc.vdsr.utils;
+package com.mlc.vdsr.enums;
 
 /**
  * Availability statuses for {@link com.mlc.vdsr.entity.Recruitment}.
@@ -6,5 +6,5 @@ package com.mlc.vdsr.utils;
 public enum Availability {
     NOT_ASSESSED,
     IMMEDIATE,
-    NEXT_MONTH,
+    NEXT_MONTH;
 }

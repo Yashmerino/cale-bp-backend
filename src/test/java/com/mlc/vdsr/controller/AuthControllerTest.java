@@ -3,7 +3,7 @@ package com.mlc.vdsr.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mlc.vdsr.dto.auth.LoginDTO;
 import com.mlc.vdsr.dto.auth.RegisterDTO;
-import com.mlc.vdsr.utils.RoleEnum;
+import com.mlc.vdsr.enums.RoleEnum;
 import jakarta.transaction.Transactional;
 import net.bytebuddy.utility.RandomString;
 import org.junit.jupiter.api.BeforeEach;

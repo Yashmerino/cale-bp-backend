@@ -1,7 +1,7 @@
 package com.mlc.vdsr.dto;
 
-import com.mlc.vdsr.utils.BudgetStatus;
-import com.mlc.vdsr.utils.Department;
+import com.mlc.vdsr.enums.BudgetStatus;
+import com.mlc.vdsr.enums.Department;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

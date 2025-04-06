@@ -1,8 +1,10 @@
 package com.mlc.vdsr.entity;
 
 import com.mlc.vdsr.entity.base.BaseEntity;
-import com.mlc.vdsr.utils.ExpenseCategory;
+import com.mlc.vdsr.enums.ExpenseCategory;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -35,6 +37,7 @@ public class Expense extends BaseEntity {
     /**
      * Expense's category.
      */
+    @Enumerated(EnumType.STRING)
     @NotNull(message = "category_is_required")
     private ExpenseCategory expenseCategory;
 

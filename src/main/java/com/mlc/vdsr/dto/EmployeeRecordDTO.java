@@ -1,6 +1,6 @@
 package com.mlc.vdsr.dto;
 
-import com.mlc.vdsr.utils.Department;
+import com.mlc.vdsr.enums.Department;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

@@ -1,4 +1,4 @@
-package com.mlc.vdsr.utils;
+package com.mlc.vdsr.enums;
 
 /**
  * Status enum for {@link com.mlc.vdsr.entity.Invoice}.
@@ -6,5 +6,5 @@ package com.mlc.vdsr.utils;
 public enum InvoiceStatus {
     PAID,
     PENDING,
-    OVERDUE
+    OVERDUE;
 }

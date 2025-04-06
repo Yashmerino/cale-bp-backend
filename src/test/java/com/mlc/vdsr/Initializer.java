@@ -1,9 +1,9 @@
 package com.mlc.vdsr;
 
 import com.mlc.vdsr.entity.*;
+import com.mlc.vdsr.enums.*;
 import com.mlc.vdsr.exception.UserNotFoundException;
 import com.mlc.vdsr.repository.*;
-import com.mlc.vdsr.utils.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;

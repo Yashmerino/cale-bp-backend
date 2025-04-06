@@ -1,9 +1,8 @@
 package com.mlc.vdsr.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mlc.vdsr.dto.EventDTO;
 import com.mlc.vdsr.dto.InvoiceDTO;
-import com.mlc.vdsr.utils.InvoiceStatus;
+import com.mlc.vdsr.enums.InvoiceStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

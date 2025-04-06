@@ -1,15 +1,12 @@
 package com.mlc.vdsr.controller;
 
 import com.mlc.vdsr.dto.BudgetDTO;
-import com.mlc.vdsr.dto.InvoiceDTO;
 import com.mlc.vdsr.dto.SuccessDTO;
 import com.mlc.vdsr.service.BudgetService;
-import com.mlc.vdsr.service.InvoiceService;
 import com.mlc.vdsr.swagger.SwaggerConfig;
 import com.mlc.vdsr.swagger.SwaggerHttpStatus;
 import com.mlc.vdsr.swagger.SwaggerMessages;
-import com.mlc.vdsr.utils.BudgetStatus;
-import com.mlc.vdsr.utils.InvoiceStatus;
+import com.mlc.vdsr.enums.BudgetStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;

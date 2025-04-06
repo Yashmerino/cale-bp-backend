@@ -1,7 +1,7 @@
 package com.mlc.vdsr.service;
 
 import com.mlc.vdsr.dto.InvoiceDTO;
-import com.mlc.vdsr.utils.InvoiceStatus;
+import com.mlc.vdsr.enums.InvoiceStatus;
 
 import java.util.List;
 

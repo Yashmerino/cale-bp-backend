@@ -5,7 +5,7 @@ import com.mlc.vdsr.entity.Budget;
 import com.mlc.vdsr.exception.BudgetNotFoundException;
 import com.mlc.vdsr.repository.BudgetRepository;
 import com.mlc.vdsr.service.BudgetService;
-import com.mlc.vdsr.utils.BudgetStatus;
+import com.mlc.vdsr.enums.BudgetStatus;
 import com.mlc.vdsr.utils.DTOToEntityConverter;
 import com.mlc.vdsr.utils.EntityToDTOConverter;
 import org.springframework.stereotype.Service;

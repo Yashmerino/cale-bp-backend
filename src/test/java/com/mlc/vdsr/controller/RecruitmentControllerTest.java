@@ -1,10 +1,9 @@
 package com.mlc.vdsr.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mlc.vdsr.dto.EventDTO;
 import com.mlc.vdsr.dto.RecruitmentDTO;
-import com.mlc.vdsr.utils.Availability;
-import com.mlc.vdsr.utils.Department;
+import com.mlc.vdsr.enums.Availability;
+import com.mlc.vdsr.enums.Department;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-
-import java.time.Instant;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.http.MediaType.APPLICATION_JSON;

@@ -1,4 +1,4 @@
-package com.mlc.vdsr.utils;
+package com.mlc.vdsr.enums;
 
 /**
  * Department enum for {@link com.mlc.vdsr.entity.Recruitment}.
@@ -7,5 +7,8 @@ public enum Department {
     IT,
     HR,
     ACCOUNTING,
-    MARKETING,
+    SALES,
+    CUSTOMER_SUPPORT,
+    FINANCE,
+    MARKETING;
 }

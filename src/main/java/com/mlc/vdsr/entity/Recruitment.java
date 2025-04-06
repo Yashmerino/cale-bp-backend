@@ -1,10 +1,11 @@
 package com.mlc.vdsr.entity;
 
 import com.mlc.vdsr.entity.base.BaseEntity;
-import com.mlc.vdsr.utils.Availability;
-import com.mlc.vdsr.utils.Department;
-import jakarta.persistence.Column;
+import com.mlc.vdsr.enums.Availability;
+import com.mlc.vdsr.enums.Department;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -35,12 +36,14 @@ public class Recruitment extends BaseEntity {
     /**
      * Recruitment's department.
      */
+    @Enumerated(EnumType.STRING)
     @NotNull(message = "department_is_required")
     private Department department;
 
     /**
      * Recruitment's availability. When the job will be available.
      */
+    @Enumerated(EnumType.STRING)
     @NotNull(message = "availability_is_required")
     private Availability availability;
 

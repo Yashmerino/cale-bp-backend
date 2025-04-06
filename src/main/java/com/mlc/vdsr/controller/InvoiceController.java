@@ -6,7 +6,7 @@ import com.mlc.vdsr.service.InvoiceService;
 import com.mlc.vdsr.swagger.SwaggerConfig;
 import com.mlc.vdsr.swagger.SwaggerHttpStatus;
 import com.mlc.vdsr.swagger.SwaggerMessages;
-import com.mlc.vdsr.utils.InvoiceStatus;
+import com.mlc.vdsr.enums.InvoiceStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;

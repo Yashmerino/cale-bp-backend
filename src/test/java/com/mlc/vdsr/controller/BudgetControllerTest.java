@@ -2,8 +2,8 @@ package com.mlc.vdsr.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mlc.vdsr.dto.BudgetDTO;
-import com.mlc.vdsr.utils.BudgetStatus;
-import com.mlc.vdsr.utils.Department;
+import com.mlc.vdsr.enums.BudgetStatus;
+import com.mlc.vdsr.enums.Department;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -12,7 +12,7 @@ import com.mlc.vdsr.repository.RoleRepository;
 import com.mlc.vdsr.repository.UserRepository;
 import com.mlc.vdsr.security.JwtProvider;
 import com.mlc.vdsr.service.AuthService;
-import com.mlc.vdsr.utils.RoleEnum;
+import com.mlc.vdsr.enums.RoleEnum;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

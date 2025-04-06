@@ -1,11 +1,8 @@
 package com.mlc.vdsr.entity;
 
 import com.mlc.vdsr.entity.base.BaseEntity;
-import com.mlc.vdsr.utils.Department;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import com.mlc.vdsr.enums.Department;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -25,6 +22,7 @@ public class EmployeeRecord extends BaseEntity {
     /**
      * Employee record's salary.
      */
+    @Enumerated(EnumType.STRING)
     @NotNull(message = "department_is_required")
     private Department department;
 

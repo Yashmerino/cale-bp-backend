@@ -5,7 +5,7 @@ import com.mlc.vdsr.entity.User;
 import com.mlc.vdsr.repository.RoleRepository;
 import com.mlc.vdsr.repository.UserRepository;
 import com.mlc.vdsr.utils.ApplicationProperties;
-import com.mlc.vdsr.utils.RoleEnum;
+import com.mlc.vdsr.enums.RoleEnum;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,7 +1,6 @@
 package com.mlc.vdsr.dto;
 
-import com.mlc.vdsr.entity.base.BaseEntity;
-import com.mlc.vdsr.utils.ExpenseCategory;
+import com.mlc.vdsr.enums.ExpenseCategory;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

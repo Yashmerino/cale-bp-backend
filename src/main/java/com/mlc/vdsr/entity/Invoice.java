@@ -1,7 +1,7 @@
 package com.mlc.vdsr.entity;
 
 import com.mlc.vdsr.entity.base.BaseEntity;
-import com.mlc.vdsr.utils.InvoiceStatus;
+import com.mlc.vdsr.enums.InvoiceStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -45,6 +45,7 @@ public class Invoice extends BaseEntity {
     /**
      * Invoice's status.
      */
+    @Enumerated(EnumType.STRING)
     @NotNull(message = "status_is_required")
     private InvoiceStatus status;
 }

@@ -7,7 +7,7 @@ import com.mlc.vdsr.repository.InvoiceRepository;
 import com.mlc.vdsr.service.InvoiceService;
 import com.mlc.vdsr.utils.DTOToEntityConverter;
 import com.mlc.vdsr.utils.EntityToDTOConverter;
-import com.mlc.vdsr.utils.InvoiceStatus;
+import com.mlc.vdsr.enums.InvoiceStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

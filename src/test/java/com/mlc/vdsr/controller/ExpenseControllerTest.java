@@ -1,9 +1,8 @@
 package com.mlc.vdsr.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mlc.vdsr.dto.EventDTO;
 import com.mlc.vdsr.dto.ExpenseDTO;
-import com.mlc.vdsr.utils.ExpenseCategory;
+import com.mlc.vdsr.enums.ExpenseCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

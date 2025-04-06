@@ -1,4 +1,4 @@
-package com.mlc.vdsr.utils;
+package com.mlc.vdsr.enums;
 
 /**
  * Enum for existing roles.
@@ -38,5 +38,5 @@ public enum RoleEnum {
     /**
      * Owner.
      */
-    OWNER
+    OWNER;
 }

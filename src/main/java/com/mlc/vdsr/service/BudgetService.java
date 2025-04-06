@@ -1,7 +1,7 @@
 package com.mlc.vdsr.service;
 
 import com.mlc.vdsr.dto.BudgetDTO;
-import com.mlc.vdsr.utils.BudgetStatus;
+import com.mlc.vdsr.enums.BudgetStatus;
 
 import java.util.List;
 

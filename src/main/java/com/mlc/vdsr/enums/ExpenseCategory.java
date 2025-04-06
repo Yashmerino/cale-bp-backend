@@ -1,4 +1,4 @@
-package com.mlc.vdsr.utils;
+package com.mlc.vdsr.enums;
 
 /**
  * Expense category enum for {@link com.mlc.vdsr.entity.Expense}.
@@ -8,5 +8,5 @@ public enum ExpenseCategory {
     HR,
     FACILITIES,
     ACCOUNTING,
-    MARKETING
+    MARKETING;
 }

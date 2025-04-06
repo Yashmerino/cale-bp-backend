@@ -1,6 +1,6 @@
 package com.mlc.vdsr.dto.auth;
 
-import com.mlc.vdsr.utils.RoleEnum;
+import com.mlc.vdsr.enums.RoleEnum;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 

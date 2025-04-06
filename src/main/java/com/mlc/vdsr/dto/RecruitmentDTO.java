@@ -1,8 +1,7 @@
 package com.mlc.vdsr.dto;
 
-import com.mlc.vdsr.utils.Availability;
-import com.mlc.vdsr.utils.Department;
-import jakarta.persistence.Column;
+import com.mlc.vdsr.enums.Availability;
+import com.mlc.vdsr.enums.Department;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -10,8 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.Instant;
 
 /**
  * Recruitment DTO class.
