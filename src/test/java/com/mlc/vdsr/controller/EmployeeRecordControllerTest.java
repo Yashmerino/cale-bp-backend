@@ -66,7 +66,7 @@ public class EmployeeRecordControllerTest {
     void getAllEmployeeRecordsTest() throws Exception {
         MvcResult result = mvc.perform(get("/api/employeeRecord")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"department\":\"IT\",\"position\":\"Developer\",\"userId\":2}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"department\":\"IT\",\"position\":\"Developer\",\"userId\":2,\"userName\":\"artiom bozieac\"}]"));
     }
 
     /**
@@ -79,7 +79,7 @@ public class EmployeeRecordControllerTest {
     void getAllEmployeeRecordsAsTLTest() throws Exception {
         MvcResult result = mvc.perform(get("/api/employeeRecord")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"department\":\"IT\",\"position\":\"Developer\",\"userId\":2}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"department\":\"IT\",\"position\":\"Developer\",\"userId\":2,\"userName\":\"artiom bozieac\"}]"));
     }
 
     /**
@@ -172,7 +172,7 @@ public class EmployeeRecordControllerTest {
 
         result = mvc.perform(get("/api/employeeRecord")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"department\":\"IT\",\"position\":\"Developer\",\"userId\":2},{\"id\":2,\"department\":\"IT\",\"position\":\"Developer\",\"userId\":1}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"department\":\"IT\",\"position\":\"Developer\",\"userId\":2,\"userName\":\"artiom bozieac\"},{\"id\":2,\"department\":\"IT\",\"position\":\"Developer\",\"userId\":1,\"userName\":\"owner owner\"}]"));
     }
 
     /**
@@ -190,7 +190,7 @@ public class EmployeeRecordControllerTest {
 
         result = mvc.perform(get("/api/employeeRecord")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"department\":\"IT\",\"position\":\"Developer\",\"userId\":1}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"department\":\"IT\",\"position\":\"Developer\",\"userId\":1,\"userName\":\"owner owner\"}]"));
     }
 
     /**

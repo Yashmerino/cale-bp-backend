@@ -132,6 +132,24 @@ public class EntityToDTOConverter {
     }
 
     /**
+     * Converts Employee Record entity to Employee Record Details DTO.
+     *
+     * @param employeeRecord is the Employee Record's entity.
+     *
+     * @return EmployeeRecordDetailsDTO.
+     */
+    public static EmployeeRecordDetailsDTO convertToEmployeeRecordDetailsDTO(EmployeeRecord employeeRecord) {
+        EmployeeRecordDetailsDTO employeeRecordDetailsDTO = new EmployeeRecordDetailsDTO();
+        employeeRecordDetailsDTO.setId(employeeRecord.getId());
+        employeeRecordDetailsDTO.setUserId(employeeRecord.getUser().getId());
+        employeeRecordDetailsDTO.setDepartment(employeeRecord.getDepartment());
+        employeeRecordDetailsDTO.setPosition(employeeRecord.getPosition());
+        employeeRecordDetailsDTO.setUserName(employeeRecord.getUser().getFirstName() + " " + employeeRecord.getUser().getLastName());
+
+        return employeeRecordDetailsDTO;
+    }
+
+    /**
      * Converts Invoice Entity to Invoice DTO.
      *
      * @param invoice is the Invoice's entity.

@@ -1,7 +1,7 @@
 package com.mlc.vdsr.service;
 
 import com.mlc.vdsr.dto.EmployeeRecordDTO;
-import com.mlc.vdsr.dto.EventDTO;
+import com.mlc.vdsr.dto.EmployeeRecordDetailsDTO;
 
 import java.util.List;
 
@@ -12,9 +12,9 @@ public interface EmployeeRecordService {
     /**
      * Returns all events.
      *
-     * @return List of EmployeeRecordDTOS.
+     * @return List of EmployeeRecordDetailsDTOS.
      */
-    List<EmployeeRecordDTO> getAllEmployeeRecords();
+    List<EmployeeRecordDetailsDTO> getAllEmployeeRecords();
 
     /**
      * Creates an event

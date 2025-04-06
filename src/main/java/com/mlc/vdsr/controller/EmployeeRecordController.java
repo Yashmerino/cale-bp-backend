@@ -1,6 +1,7 @@
 package com.mlc.vdsr.controller;
 
 import com.mlc.vdsr.dto.EmployeeRecordDTO;
+import com.mlc.vdsr.dto.EmployeeRecordDetailsDTO;
 import com.mlc.vdsr.dto.SuccessDTO;
 import com.mlc.vdsr.service.EmployeeRecordService;
 import com.mlc.vdsr.swagger.SwaggerConfig;
@@ -50,13 +51,13 @@ public class EmployeeRecordController {
     /**
      * Returns all existing employee records.
      *
-     * @return List of EmployeeRecordDTOS.
+     * @return List of EmployeeRecordDetailsDTOS.
      */
     @Operation(summary = "Returns all employee records.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = SwaggerHttpStatus.OK, description = SwaggerMessages.SUCCESS,
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(type = "array", implementation = EmployeeRecordDTO.class))}),
+                            schema = @Schema(type = "array", implementation = EmployeeRecordDetailsDTO.class))}),
             @ApiResponse(responseCode = SwaggerHttpStatus.FORBIDDEN, description = SwaggerMessages.FORBIDDEN,
                     content = @Content),
             @ApiResponse(responseCode = SwaggerHttpStatus.UNAUTHORIZED, description = SwaggerMessages.UNAUTHORIZED,
@@ -66,7 +67,7 @@ public class EmployeeRecordController {
             @ApiResponse(responseCode = SwaggerHttpStatus.INTERNAL_SERVER_ERROR, description = SwaggerMessages.INTERNAL_SERVER_ERROR,
                     content = @Content)})
     @GetMapping
-    public List<EmployeeRecordDTO> getAllEmployeeRecords() {
+    public List<EmployeeRecordDetailsDTO> getAllEmployeeRecords() {
         return this.employeeRecordService.getAllEmployeeRecords();
     }
 

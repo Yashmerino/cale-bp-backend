@@ -1,6 +1,7 @@
 package com.mlc.vdsr.service.impl;
 
 import com.mlc.vdsr.dto.EmployeeRecordDTO;
+import com.mlc.vdsr.dto.EmployeeRecordDetailsDTO;
 import com.mlc.vdsr.entity.EmployeeRecord;
 import com.mlc.vdsr.entity.User;
 import com.mlc.vdsr.exception.EmployeeRecordNotFoundException;
@@ -45,19 +46,19 @@ public class EmployeeRecordServiceImpl implements EmployeeRecordService {
     /**
      * Returns all employee records.
      *
-     * @return List of EmployeeRecordDTOs.
+     * @return List of EmployeeRecordDetailsDTOs.
      */
     @Override
-    public List<EmployeeRecordDTO> getAllEmployeeRecords() {
+    public List<EmployeeRecordDetailsDTO> getAllEmployeeRecords() {
         List<EmployeeRecord> employeeRecords = this.employeeRecordRepository.findAll();
 
-        List<EmployeeRecordDTO> employeeRecordDTOS = new ArrayList<>();
+        List<EmployeeRecordDetailsDTO> employeeRecordDetailsDTOS = new ArrayList<>();
 
         for (EmployeeRecord employeeRecord : employeeRecords) {
-            employeeRecordDTOS.add(EntityToDTOConverter.convertToEmployeeRecordDTO(employeeRecord));
+            employeeRecordDetailsDTOS.add(EntityToDTOConverter.convertToEmployeeRecordDetailsDTO(employeeRecord));
         }
 
-        return employeeRecordDTOS;
+        return employeeRecordDetailsDTOS;
     }
 
     /**
