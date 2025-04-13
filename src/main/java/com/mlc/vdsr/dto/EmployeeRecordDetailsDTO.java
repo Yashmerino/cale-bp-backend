@@ -38,12 +38,6 @@ public class EmployeeRecordDetailsDTO {
     private String position;
 
     /**
-     * Employee record's user.
-     */
-    @NotNull(message = "user_is_required")
-    private Long userId;
-
-    /**
      * Employee record's user's name.
      */
     @NotNull(message = "user_name_is_required")

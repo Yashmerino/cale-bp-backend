@@ -35,11 +35,12 @@ public class EmployeeRecord extends BaseEntity {
     private String position;
 
     /**
-     * Employee record's user.
+     * Employee record's name.
      */
-    @NotNull(message = "user_is_required")
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    private User user;
+    @NotNull(message = "name_is_required")
+    @NotBlank(message = "name_is_required")
+    @Size(max = 64, min = 1, message = "name_length_invalid")
+    private String name;
 }
 
 

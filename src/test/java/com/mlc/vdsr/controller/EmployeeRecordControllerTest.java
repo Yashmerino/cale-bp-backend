@@ -53,7 +53,7 @@ public class EmployeeRecordControllerTest {
         employeeRecordDTO = new EmployeeRecordDTO();
         employeeRecordDTO.setDepartment(Department.IT);
         employeeRecordDTO.setPosition("Developer");
-        employeeRecordDTO.setUserId(1L);
+        employeeRecordDTO.setName("artiom bozieac");
     }
 
     /**
@@ -66,7 +66,7 @@ public class EmployeeRecordControllerTest {
     void getAllEmployeeRecordsTest() throws Exception {
         MvcResult result = mvc.perform(get("/api/employeeRecord")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"department\":\"IT\",\"position\":\"Developer\",\"userId\":2,\"userName\":\"artiom bozieac\"}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"department\":\"IT\",\"position\":\"Developer\",\"userName\":\"artiom bozieac\"}]"));
     }
 
     /**
@@ -79,7 +79,7 @@ public class EmployeeRecordControllerTest {
     void getAllEmployeeRecordsAsTLTest() throws Exception {
         MvcResult result = mvc.perform(get("/api/employeeRecord")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"department\":\"IT\",\"position\":\"Developer\",\"userId\":2,\"userName\":\"artiom bozieac\"}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"department\":\"IT\",\"position\":\"Developer\",\"userName\":\"artiom bozieac\"}]"));
     }
 
     /**
@@ -172,7 +172,7 @@ public class EmployeeRecordControllerTest {
 
         result = mvc.perform(get("/api/employeeRecord")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"department\":\"IT\",\"position\":\"Developer\",\"userId\":2,\"userName\":\"artiom bozieac\"},{\"id\":2,\"department\":\"IT\",\"position\":\"Developer\",\"userId\":1,\"userName\":\"owner owner\"}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"department\":\"IT\",\"position\":\"Developer\",\"userName\":\"artiom bozieac\"},{\"id\":2,\"department\":\"IT\",\"position\":\"Developer\",\"userName\":\"artiom bozieac\"}]"));
     }
 
     /**
@@ -190,7 +190,7 @@ public class EmployeeRecordControllerTest {
 
         result = mvc.perform(get("/api/employeeRecord")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"department\":\"IT\",\"position\":\"Developer\",\"userId\":1,\"userName\":\"owner owner\"}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"department\":\"IT\",\"position\":\"Developer\",\"userName\":\"artiom bozieac\"}]"));
     }
 
     /**

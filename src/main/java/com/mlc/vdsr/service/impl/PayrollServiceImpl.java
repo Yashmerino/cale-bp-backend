@@ -4,10 +4,8 @@ import com.mlc.vdsr.dto.PayrollDTO;
 import com.mlc.vdsr.dto.PayrollDetailsDTO;
 import com.mlc.vdsr.entity.EmployeeRecord;
 import com.mlc.vdsr.entity.Payroll;
-import com.mlc.vdsr.entity.User;
 import com.mlc.vdsr.exception.EmployeeRecordNotFoundException;
 import com.mlc.vdsr.exception.PayrollNotFoundException;
-import com.mlc.vdsr.exception.UserNotFoundException;
 import com.mlc.vdsr.repository.EmployeeRecordRepository;
 import com.mlc.vdsr.repository.PayrollRepository;
 import com.mlc.vdsr.repository.UserRepository;
@@ -31,11 +29,6 @@ public class PayrollServiceImpl implements PayrollService {
     private final PayrollRepository payrollRepository;
 
     /**
-     * User's repository.
-     */
-    private final UserRepository userRepository;
-
-    /**
      * Employee record's repository.
      */
     private final EmployeeRecordRepository employeeRecordRepository;
@@ -44,12 +37,10 @@ public class PayrollServiceImpl implements PayrollService {
      * Constructor.
      *
      * @param payrollRepository is the payroll's repository.
-     * @param userRepository is the user's repository.
      * @param employeeRecordRepository is the employee record's repository.
      */
-    public PayrollServiceImpl(PayrollRepository payrollRepository, UserRepository userRepository, EmployeeRecordRepository employeeRecordRepository) {
+    public PayrollServiceImpl(PayrollRepository payrollRepository, EmployeeRecordRepository employeeRecordRepository) {
         this.payrollRepository = payrollRepository;
-        this.userRepository = userRepository;
         this.employeeRecordRepository = employeeRecordRepository;
     }
 
@@ -63,13 +54,12 @@ public class PayrollServiceImpl implements PayrollService {
 
         List<PayrollDetailsDTO> payrollDetailsDTOS = new ArrayList<>();
         for (Payroll payroll : payrolls) {
-            User user = this.userRepository.findById(payroll.getUser().getId()).orElseThrow(UserNotFoundException::new);
-            EmployeeRecord employeeRecord = this.employeeRecordRepository.findEmployeeRecordByUser(user).orElseThrow(EmployeeRecordNotFoundException::new);
+            EmployeeRecord employeeRecord = payroll.getEmployee();
 
             PayrollDetailsDTO payrollDetailsDTO = EntityToDTOConverter.convertToPayrollDetailsDTO(payroll);
             payrollDetailsDTO.setPosition(employeeRecord.getPosition());
             payrollDetailsDTO.setDepartment(employeeRecord.getDepartment());
-            payrollDetailsDTO.setUserName(user.getFirstName() + " " + user.getLastName());
+            payrollDetailsDTO.setUserName(employeeRecord.getName());
 
             payrollDetailsDTOS.add(payrollDetailsDTO);
         }
@@ -83,8 +73,8 @@ public class PayrollServiceImpl implements PayrollService {
      * @param payrollDTO is the payroll's DTO.
      */
     public void createPayroll(final PayrollDTO payrollDTO) {
-        User user = this.userRepository.findById(payrollDTO.getUserId()).orElseThrow(UserNotFoundException::new);
-        Payroll payroll = DTOToEntityConverter.convertToPayrollEntity(payrollDTO, user);
+        EmployeeRecord employee = this.employeeRecordRepository.findById(payrollDTO.getEmployeeId()).orElseThrow(EmployeeRecordNotFoundException::new);
+        Payroll payroll = DTOToEntityConverter.convertToPayrollEntity(payrollDTO, employee);
 
         this.payrollRepository.save(payroll);
     }
@@ -101,7 +91,7 @@ public class PayrollServiceImpl implements PayrollService {
         payroll.setSalary(payrollDTO.getSalary());
         payroll.setPaidDate(payrollDTO.getPaidDate());
         payroll.setStatus(payrollDTO.getStatus());
-        payroll.setUser(this.userRepository.findById(payrollDTO.getUserId()).orElseThrow(UserNotFoundException::new));
+        payroll.setEmployee(this.employeeRecordRepository.findById(payrollDTO.getEmployeeId()).orElseThrow(EmployeeRecordNotFoundException::new));
 
         this.payrollRepository.save(payroll);
     }

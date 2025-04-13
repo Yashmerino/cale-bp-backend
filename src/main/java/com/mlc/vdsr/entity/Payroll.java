@@ -43,12 +43,12 @@ public class Payroll extends BaseEntity {
     private PayrollStatus status;
 
     /**
-     * Payroll's user.
+     * Payroll's employee.
      */
-    @NotNull(message = "user_is_required")
+    @NotNull(message = "employee_is_required")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "employee_id", nullable = false)
+    private EmployeeRecord employee;
 }
 
 

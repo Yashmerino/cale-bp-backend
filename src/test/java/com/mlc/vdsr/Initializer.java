@@ -2,6 +2,7 @@ package com.mlc.vdsr;
 
 import com.mlc.vdsr.entity.*;
 import com.mlc.vdsr.enums.*;
+import com.mlc.vdsr.exception.EmployeeRecordNotFoundException;
 import com.mlc.vdsr.exception.UserNotFoundException;
 import com.mlc.vdsr.repository.*;
 import org.springframework.boot.CommandLineRunner;
@@ -122,18 +123,18 @@ public class Initializer implements CommandLineRunner {
         project.setTitle("Project");
         projectRepository.save(project);
 
+        EmployeeRecord employeeRecord = new EmployeeRecord();
+        employeeRecord.setName("artiom bozieac");
+        employeeRecord.setDepartment(Department.IT);
+        employeeRecord.setPosition("Developer");
+        employeeRecordRepository.save(employeeRecord);
+
         Payroll payroll = new Payroll();
-        payroll.setUser(this.userRepository.findByUsername("artiombozieac").orElseThrow(UserNotFoundException::new));
+        payroll.setEmployee(this.employeeRecordRepository.findById(1L).orElseThrow(EmployeeRecordNotFoundException::new));
         payroll.setSalary(100.0);
         payroll.setPaidDate(Instant.ofEpochSecond(1741102389));
         payroll.setStatus(PayrollStatus.UNPAID);
         payrollRepository.save(payroll);
-
-        EmployeeRecord employeeRecord = new EmployeeRecord();
-        employeeRecord.setUser(this.userRepository.findByUsername("artiombozieac").orElseThrow(UserNotFoundException::new));
-        employeeRecord.setDepartment(Department.IT);
-        employeeRecord.setPosition("Developer");
-        employeeRecordRepository.save(employeeRecord);
 
         Invoice invoice = new Invoice();
         invoice.setClient("Client");

@@ -88,7 +88,7 @@ public class EntityToDTOConverter {
     public static PayrollDTO convertToPayrollDTO(Payroll payroll) {
         PayrollDTO payrollDTO = new PayrollDTO();
         payrollDTO.setId(payroll.getId());
-        payrollDTO.setUserId(payroll.getUser().getId());
+        payrollDTO.setEmployeeId(payroll.getEmployee().getId());
         payrollDTO.setPaidDate(payroll.getPaidDate());
         payrollDTO.setSalary(payroll.getSalary());
         payrollDTO.setStatus(payroll.getStatus());
@@ -106,7 +106,7 @@ public class EntityToDTOConverter {
     public static PayrollDetailsDTO convertToPayrollDetailsDTO(Payroll payroll) {
         PayrollDetailsDTO payrollDetailsDTO = new PayrollDetailsDTO();
         payrollDetailsDTO.setId(payroll.getId());
-        payrollDetailsDTO.setUserId(payroll.getUser().getId());
+        payrollDetailsDTO.setEmployeeId(payroll.getEmployee().getId());
         payrollDetailsDTO.setPaidDate(payroll.getPaidDate());
         payrollDetailsDTO.setSalary(payroll.getSalary());
         payrollDetailsDTO.setStatus(payroll.getStatus());
@@ -124,9 +124,9 @@ public class EntityToDTOConverter {
     public static EmployeeRecordDTO convertToEmployeeRecordDTO(EmployeeRecord employeeRecord) {
         EmployeeRecordDTO employeeRecordDTO = new EmployeeRecordDTO();
         employeeRecordDTO.setId(employeeRecord.getId());
-        employeeRecordDTO.setUserId(employeeRecord.getUser().getId());
         employeeRecordDTO.setDepartment(employeeRecord.getDepartment());
         employeeRecordDTO.setPosition(employeeRecord.getPosition());
+        employeeRecordDTO.setName(employeeRecord.getName());
 
         return employeeRecordDTO;
     }
@@ -141,10 +141,9 @@ public class EntityToDTOConverter {
     public static EmployeeRecordDetailsDTO convertToEmployeeRecordDetailsDTO(EmployeeRecord employeeRecord) {
         EmployeeRecordDetailsDTO employeeRecordDetailsDTO = new EmployeeRecordDetailsDTO();
         employeeRecordDetailsDTO.setId(employeeRecord.getId());
-        employeeRecordDetailsDTO.setUserId(employeeRecord.getUser().getId());
         employeeRecordDetailsDTO.setDepartment(employeeRecord.getDepartment());
         employeeRecordDetailsDTO.setPosition(employeeRecord.getPosition());
-        employeeRecordDetailsDTO.setUserName(employeeRecord.getUser().getFirstName() + " " + employeeRecord.getUser().getLastName());
+        employeeRecordDetailsDTO.setUserName(employeeRecord.getName());
 
         return employeeRecordDetailsDTO;
     }

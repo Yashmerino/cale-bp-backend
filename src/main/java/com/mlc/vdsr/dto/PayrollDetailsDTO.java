@@ -1,10 +1,10 @@
 package com.mlc.vdsr.dto;
 
+import com.mlc.vdsr.entity.EmployeeRecord;
 import com.mlc.vdsr.enums.Contract;
 import com.mlc.vdsr.enums.Department;
 import com.mlc.vdsr.enums.PayrollStatus;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -41,10 +41,10 @@ public class PayrollDetailsDTO {
     private Instant paidDate;
 
     /**
-     * Payroll's user.
+     * Payroll's employee.
      */
-    @NotNull(message = "user_is_required")
-    private Long userId;
+    @NotNull(message = "employee_is_required")
+    private Long employeeId;
 
     /**
      * Payroll's status

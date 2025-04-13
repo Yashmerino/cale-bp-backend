@@ -3,14 +3,13 @@ package com.mlc.vdsr.service.impl;
 import com.mlc.vdsr.dto.EmployeeRecordDTO;
 import com.mlc.vdsr.dto.EmployeeRecordDetailsDTO;
 import com.mlc.vdsr.entity.EmployeeRecord;
-import com.mlc.vdsr.entity.User;
 import com.mlc.vdsr.exception.EmployeeRecordNotFoundException;
-import com.mlc.vdsr.exception.UserNotFoundException;
 import com.mlc.vdsr.repository.EmployeeRecordRepository;
-import com.mlc.vdsr.repository.UserRepository;
+import com.mlc.vdsr.repository.PayrollRepository;
 import com.mlc.vdsr.service.EmployeeRecordService;
 import com.mlc.vdsr.utils.DTOToEntityConverter;
 import com.mlc.vdsr.utils.EntityToDTOConverter;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,19 +27,20 @@ public class EmployeeRecordServiceImpl implements EmployeeRecordService {
     private final EmployeeRecordRepository employeeRecordRepository;
 
     /**
-     * User repository.
+     * Payroll repository.
      */
-    private final UserRepository userRepository;
+    private final PayrollRepository payrollRepository;
 
     /**
      * Constructor.
      *
      * @param employeeRecordRepository is the employee record repository.
-     * @param userRepository is the user repository.
+     * @param payrollRepository is the payroll repository.
+     *
      */
-    public EmployeeRecordServiceImpl(EmployeeRecordRepository employeeRecordRepository, UserRepository userRepository) {
+    public EmployeeRecordServiceImpl(EmployeeRecordRepository employeeRecordRepository, PayrollRepository payrollRepository) {
         this.employeeRecordRepository = employeeRecordRepository;
-        this.userRepository = userRepository;
+        this.payrollRepository = payrollRepository;
     }
 
     /**
@@ -68,8 +68,7 @@ public class EmployeeRecordServiceImpl implements EmployeeRecordService {
      */
     @Override
     public void createEmployeeRecord(final EmployeeRecordDTO employeeRecordDTO) {
-        User user = userRepository.findById(employeeRecordDTO.getUserId()).orElseThrow(UserNotFoundException::new);
-        EmployeeRecord employeeRecord = DTOToEntityConverter.convertToEmployeeRecordEntity(employeeRecordDTO, user);
+        EmployeeRecord employeeRecord = DTOToEntityConverter.convertToEmployeeRecordEntity(employeeRecordDTO);
 
         this.employeeRecordRepository.save(employeeRecord);
     }
@@ -79,11 +78,13 @@ public class EmployeeRecordServiceImpl implements EmployeeRecordService {
      *
      * @param id is the Employee Record's id.
      */
+    @Transactional
     @Override
     public void deleteEmployeeRecord(Long id) {
         EmployeeRecord employeeRecord = this.employeeRecordRepository.findById(id)
                 .orElseThrow(EmployeeRecordNotFoundException::new);
 
+        this.payrollRepository.deleteAllByEmployee(employeeRecord);
         this.employeeRecordRepository.delete(employeeRecord);
     }
 
@@ -97,11 +98,10 @@ public class EmployeeRecordServiceImpl implements EmployeeRecordService {
     public void updateEmployeeRecord(final long id, final EmployeeRecordDTO employeeRecordDTO) {
         EmployeeRecord employeeRecord = this.employeeRecordRepository.findById(id)
                 .orElseThrow(EmployeeRecordNotFoundException::new);
-        User user = userRepository.findById(employeeRecordDTO.getUserId()).orElseThrow(UserNotFoundException::new);
 
         employeeRecord.setPosition(employeeRecordDTO.getPosition());
         employeeRecord.setDepartment(employeeRecordDTO.getDepartment());
-        employeeRecord.setUser(user);
+        employeeRecord.setName(employeeRecord.getName());
 
         this.employeeRecordRepository.save(employeeRecord);
     }

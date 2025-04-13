@@ -1,9 +1,9 @@
 package com.mlc.vdsr.dto;
 
+import com.mlc.vdsr.entity.EmployeeRecord;
 import com.mlc.vdsr.entity.User;
 import com.mlc.vdsr.enums.PayrollStatus;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -49,10 +49,10 @@ public class PayrollDTO {
     private PayrollStatus status;
 
     /**
-     * Payroll's user.
+     * Payroll's employee.
      */
-    @NotNull(message = "user_is_required")
-    private Long userId;
+    @NotNull(message = "employee_is_required")
+    private Long employeeId;
 }
 
 

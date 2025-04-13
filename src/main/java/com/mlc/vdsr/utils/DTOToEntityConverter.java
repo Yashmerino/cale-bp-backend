@@ -79,12 +79,13 @@ public class DTOToEntityConverter {
      * Converts Payroll DTO to Payroll Entity.
      *
      * @param payrollDTO is the Payroll's DTO.
+     * @param employee is the Employee entity.
      *
      * @return Payroll entity.
      */
-    public static Payroll convertToPayrollEntity(PayrollDTO payrollDTO, User user) {
+    public static Payroll convertToPayrollEntity(PayrollDTO payrollDTO, EmployeeRecord employee) {
         Payroll payroll = new Payroll();
-        payroll.setUser(user);
+        payroll.setEmployee(employee);
         payroll.setPaidDate(payrollDTO.getPaidDate());
         payroll.setSalary(payrollDTO.getSalary());
         payroll.setStatus(payrollDTO.getStatus());
@@ -99,11 +100,11 @@ public class DTOToEntityConverter {
      *
      * @return Employee Record entity.
      */
-    public static EmployeeRecord convertToEmployeeRecordEntity(EmployeeRecordDTO employeeRecordDTO, User user) {
+    public static EmployeeRecord convertToEmployeeRecordEntity(EmployeeRecordDTO employeeRecordDTO) {
         EmployeeRecord employeeRecord = new EmployeeRecord();
-        employeeRecord.setUser(user);
         employeeRecord.setDepartment(employeeRecordDTO.getDepartment());
         employeeRecord.setPosition(employeeRecordDTO.getPosition());
+        employeeRecord.setName(employeeRecordDTO.getName());
 
         return employeeRecord;
     }

@@ -56,7 +56,7 @@ public class PayrollControllerTest {
         payrollDTO = new PayrollDTO();
         payrollDTO.setSalary(100.0);
         payrollDTO.setPaidDate(Instant.ofEpochSecond(1741102389));
-        payrollDTO.setUserId(2L);
+        payrollDTO.setEmployeeId(1L);
         payrollDTO.setStatus(PayrollStatus.UNPAID);
     }
 
@@ -70,7 +70,7 @@ public class PayrollControllerTest {
     void getAllPayrollsTest() throws Exception {
         MvcResult result = mvc.perform(get("/api/payroll")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"salary\":100.0,\"paidDate\":\"2025-03-04T15:33:09Z\",\"userId\":2,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"salary\":100.0,\"paidDate\":\"2025-03-04T15:33:09Z\",\"employeeId\":1,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"}]"));
     }
 
     /**
@@ -83,7 +83,7 @@ public class PayrollControllerTest {
     void getAllPayrollsAsTLTest() throws Exception {
         MvcResult result = mvc.perform(get("/api/payroll")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"salary\":100.0,\"paidDate\":\"2025-03-04T15:33:09Z\",\"userId\":2,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"salary\":100.0,\"paidDate\":\"2025-03-04T15:33:09Z\",\"employeeId\":1,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"}]"));
     }
 
     /**
@@ -158,7 +158,7 @@ public class PayrollControllerTest {
 
         result = mvc.perform(get("/api/payroll")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"salary\":100.0,\"paidDate\":\"2025-03-04T15:33:09Z\",\"userId\":2,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"},{\"id\":2,\"salary\":100.0,\"paidDate\":\"2025-03-04T15:33:09Z\",\"userId\":2,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"salary\":100.0,\"paidDate\":\"2025-03-04T15:33:09Z\",\"employeeId\":1,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"},{\"id\":2,\"salary\":100.0,\"paidDate\":\"2025-03-04T15:33:09Z\",\"employeeId\":1,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"}]"));
     }
 
     /**
@@ -176,7 +176,7 @@ public class PayrollControllerTest {
 
         result = mvc.perform(get("/api/payroll")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"salary\":100.0,\"paidDate\":\"2025-03-04T15:33:09Z\",\"userId\":2,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"},{\"id\":2,\"salary\":100.0,\"paidDate\":\"2025-03-04T15:33:09Z\",\"userId\":2,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"salary\":100.0,\"paidDate\":\"2025-03-04T15:33:09Z\",\"employeeId\":1,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"},{\"id\":2,\"salary\":100.0,\"paidDate\":\"2025-03-04T15:33:09Z\",\"employeeId\":1,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"}]"));
 
         payrollDTO.setStatus(PayrollStatus.PAID);
         result = mvc.perform(post("/api/payroll/1").contentType(
@@ -186,7 +186,7 @@ public class PayrollControllerTest {
 
         result = mvc.perform(get("/api/payroll")).andExpect(status().isOk()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"salary\":100.0,\"paidDate\":\"2025-03-04T15:33:09Z\",\"userId\":2,\"status\":\"PAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"},{\"id\":2,\"salary\":100.0,\"paidDate\":\"2025-03-04T15:33:09Z\",\"userId\":2,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"}]"));
+        assertTrue(result.getResponse().getContentAsString().contains("[{\"id\":1,\"salary\":100.0,\"paidDate\":\"2025-03-04T15:33:09Z\",\"employeeId\":1,\"status\":\"PAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"},{\"id\":2,\"salary\":100.0,\"paidDate\":\"2025-03-04T15:33:09Z\",\"employeeId\":1,\"status\":\"UNPAID\",\"userName\":\"artiom bozieac\",\"department\":\"IT\",\"position\":\"Developer\"}]"));
 
     }
 }
