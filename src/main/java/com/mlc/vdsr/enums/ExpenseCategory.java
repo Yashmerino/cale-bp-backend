@@ -8,5 +8,8 @@ public enum ExpenseCategory {
     HR,
     FACILITIES,
     ACCOUNTING,
-    MARKETING;
+    MARKETING,
+    CUSTOMER_SUPPORT,
+    SALES,
+    FINANCE;
 }
