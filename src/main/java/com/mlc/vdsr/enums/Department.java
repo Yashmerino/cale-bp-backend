@@ -10,5 +10,6 @@ public enum Department {
     SALES,
     CUSTOMER_SUPPORT,
     FINANCE,
+    FACILITIES,
     MARKETING;
 }
