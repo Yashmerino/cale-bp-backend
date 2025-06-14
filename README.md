@@ -1,5 +1,9 @@
 # VDSR Backend Project
 
+Bachelor’s Project: Company Management API using Spring Boot
+<br><br>
+Developed a RESTful API using Spring Boot to streamline core business operations for a company. The system enables efficient management of employees, project assignments, job postings, and basic accounting tasks. Designed with scalability and modularity in mind, the API supports CRUD operations, role-based access control, and integrates best practices for clean architecture and RESTful design.
+
 ## Requirements:
 - Java 17
 - PostgreSQL (I recommend using Docker for this)
