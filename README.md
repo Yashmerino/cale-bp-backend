@@ -1,4 +1,4 @@
-<h1 align="center">🚀 VDSR Backend Project</h1>
+<h1 align="center">🚀 Cale Backend Project</h1>
 
 <p align="center"><i>Bachelor’s Project: Company Management API using Spring Boot</i></p>
 
